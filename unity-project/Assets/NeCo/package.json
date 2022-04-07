@@ -2,7 +2,7 @@
     "name": "com.carp.necontainer",
     "displayName": "NeContainer",
     "version": "1.0.0",
-    "unity": "2020.3.25f1",
+    "unity": "2020",
     "author": {
       "name": "carp"
     }
