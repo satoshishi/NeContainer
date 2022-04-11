@@ -2,12 +2,12 @@ using UnityEngine;
 
 namespace NeCo.Helper
 {
-    public class SceneRegistrationHelper : MonoBehaviour, IRegistrationHelper
+    public class SceneRegistrationHelper : RegistrationHelperBase
     {
         [SerializeField]
         private bool m_isDestoryOnBuild = false;
 
-        public INeCoResolver RegistrationAndBuild()
+        public override INeCoResolver RegistrationAndBuild()
         {
             var container = NeCoUtilities.Create();
 
@@ -16,7 +16,7 @@ namespace NeCo.Helper
             return container.Build();
         }        
 
-        public INeCoBuilder Registration(INeCoBuilder container = default)
+        public override INeCoBuilder Registration(INeCoBuilder container = default)
         {
             var hierarchyRegistrations = GameObject.FindObjectsOfType<HierarchyRegistrationHelper>();
 
