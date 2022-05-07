@@ -149,7 +149,12 @@ namespace NeCo
             if(info.IsConstant() && Instance != null)
                 return Instance;
 
-            return GameObject.Instantiate(info.GameObject,info.Parent);
+            var newInstance = GameObject.Instantiate(info.GameObject,info.Parent);
+
+            if(info.DontDestoryOnLoad)
+                UnityEngine.Object.DontDestroyOnLoad(newInstance);
+
+            return newInstance;
         }
 
         protected override void SetInstance(object instance)
