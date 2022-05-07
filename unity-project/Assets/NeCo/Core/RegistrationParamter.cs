@@ -243,6 +243,13 @@ namespace NeCo
         }
         private INeCoInjecter injecter;
 
+
+        public bool DontDestoryOnLoad
+        {
+            get => dontDestoryOnLoad;
+        }
+        private bool dontDestoryOnLoad;
+
         public bool IsThisEntryPoint
         {
             get => isThisEntryPoint;
@@ -256,6 +263,7 @@ namespace NeCo
             INeCoInjecter injecter,
             MonoBehaviour gameObject,
             Transform parent,
+            bool dontDestoryOnLoad,
             bool isThisEntryPoint)
         {
             this.from = from;
@@ -264,6 +272,7 @@ namespace NeCo
             this.injecter = injecter;
             this.GameObject = gameObject;
             this.Parent = parent;
+            this.dontDestoryOnLoad = dontDestoryOnLoad;
             this.isThisEntryPoint = isThisEntryPoint;
         }        
     }
