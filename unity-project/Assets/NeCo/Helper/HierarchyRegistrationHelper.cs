@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace NeCo.Helper
 {
-    public abstract class HierarchyRegistrationHelper : RegistrationHelperBase
+    public abstract class HierarchyRegistrationHelper : RegistrationHelperGameObject
     {
         [SerializeField]
         private bool m_isDestoryOnBuild = false;

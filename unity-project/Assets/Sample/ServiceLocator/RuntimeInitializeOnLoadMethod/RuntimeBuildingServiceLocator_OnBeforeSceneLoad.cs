@@ -9,7 +9,7 @@ public class RuntimeBuildingServiceLocator_OnBeforeSceneLoad
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
     static void BuildingServiceLocatorOnBeforeSceneLoad()
     {
-        ScriptableObjectRegistrationHelper helper = Resources.Load("RegistrationHelpers") as ScriptableObjectRegistrationHelper;
+        RegistrationHelperScriptableObject helper = Resources.Load("RegistrationHelpers") as RegistrationHelperScriptableObject;
         INeCoResolver resolver = helper.RegistrationAndBuild();
 
         GameObject serviceLocatorObject = new GameObject("ServiceLocator");
