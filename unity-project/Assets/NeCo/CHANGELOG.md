@@ -1,5 +1,9 @@
 # ChangeLog
 
+## [1.0.6] - 2022-05-09
+### RegistrationHelperの基底クラスをリファクタリング
+- RegistrationHelperのinterfaceを定義し、GameObject用とScriptableObjectがそれを継承する形に
+
 ## [1.0.5] - 2022-05-07
 ### ServiceLocatorとして運用するケースのための改修
 - ScriptableObjectからのRegistrationをする機能追加
