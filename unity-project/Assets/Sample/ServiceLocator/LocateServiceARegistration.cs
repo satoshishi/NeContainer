@@ -1,10 +1,11 @@
 using NeCo.Helper;
 using NeCo;
 
-public class LocateServiceARegistration : HierarchyRegistrationHelper
+public class LocateServiceARegistration : RegistrationHelperGameObject
 {
-    protected override void OnRegistration(INeCoBuilder container)
+    public override INeCoBuilder Registration(INeCoBuilder container = null)
     {
         container.Register<LocateServiceA>(InstanceType.Singleton);
+        return container;
     }
 }

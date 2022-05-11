@@ -6,7 +6,7 @@ namespace NeCo.Helper
 {
 
     [CreateAssetMenu(fileName = "Write Name", menuName = "NeCo/RegistrationHelperScriptableObject")]
-    public class RegistrationHelperScriptableObject : ScriptableObject,IRegistrationHelper
+    public class RegistrationHelperScriptableObject : ScriptableObject, IRegistrationHelper
     {
         [SerializeField]
         private RegistrationHelperGameObject[] m_helpers;
@@ -21,7 +21,8 @@ namespace NeCo.Helper
             }
 
             return container.Build();
-        }       
+        }
+
         public INeCoBuilder Registration(INeCoBuilder container = default)
         {
             foreach (var helper in m_helpers)
@@ -29,7 +30,7 @@ namespace NeCo.Helper
                 container = helper.Registration(container);
             }
 
-            return container;            
+            return container;
         }
     }
 }

@@ -7,7 +7,17 @@ namespace NeCo.Helper
     [DisallowMultipleComponent]
     public abstract class RegistrationHelperGameObject : MonoBehaviour, IRegistrationHelper
     {
-        public abstract INeCoResolver RegistrationAndBuild();
+        [SerializeField]
+        private bool m_isDestoryOnBuild = false;
+        public bool IsDestoryOnBuild => m_isDestoryOnBuild;
+
+        public virtual INeCoResolver RegistrationAndBuild()
+        {
+            INeCoBuilder builder = NeCoUtilities.Create();
+            Registration(builder);
+
+            return builder.Build();
+        }
 
         public abstract INeCoBuilder Registration(INeCoBuilder container = default);
     }

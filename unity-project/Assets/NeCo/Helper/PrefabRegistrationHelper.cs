@@ -3,7 +3,7 @@ using NeCo;
 
 namespace NeCo.Helper
 {
-    public class PrefabRegistrationHelper : HierarchyRegistrationHelper
+    public class PrefabRegistrationHelper : RegistrationHelperGameObject
     {
         [System.Serializable]
         public class RegistrationParameter
@@ -24,12 +24,14 @@ namespace NeCo.Helper
         [SerializeField]
         RegistrationParameter[] m_parameters;
 
-        protected override void OnRegistration(INeCoBuilder container)
+        public override INeCoBuilder Registration(INeCoBuilder container = null)
         {
             foreach (var parameter in m_parameters)
             {
                 container.RegisterPrefab(parameter.instance, parameter.parent, parameter.dontDestoryOnLoad, parameter.isTransient, parameter.id, parameter.entryPoint);
             }
+
+            return container;
         }
     }
 }
