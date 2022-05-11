@@ -5,11 +5,13 @@ using NeCo;
 
 namespace NeCo.Helper
 {
-    public class StateNodeObserverRegistrationHelper : HierarchyRegistrationHelper
+    public class StateNodeObserverRegistrationHelper : RegistrationHelperGameObject
     {
-        protected override void OnRegistration(INeCoBuilder container)
+        public override INeCoBuilder Registration(INeCoBuilder container = null)
         {
             container.Register<CurrentlyStateObserver>(InstanceType.Singleton);
+
+            return container;
         }
     }
 }

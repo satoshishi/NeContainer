@@ -2,23 +2,24 @@ using UnityEngine;
 
 namespace NeCo.Helper
 {
-    public class SceneRegistrationHelper : RegistrationHelperGameObject
+    public class SceneRegistrationHelper : MonoBehaviour, IRegistrationHelper
     {
+
         [SerializeField]
         private bool m_isDestoryOnBuild = false;
+        public bool IsDestoryOnBuild => m_isDestoryOnBuild;
 
-        public override INeCoResolver RegistrationAndBuild()
+        public INeCoResolver RegistrationAndBuild()
         {
-            var container = NeCoUtilities.Create();
+            INeCoBuilder builder = NeCoUtilities.Create();
+            Registration(builder);
 
-            Registration(container);
+            return builder.Build();
+        }
 
-            return container.Build();
-        }        
-
-        public override INeCoBuilder Registration(INeCoBuilder container = default)
+        public INeCoBuilder Registration(INeCoBuilder container = default)
         {
-            var hierarchyRegistrations = GameObject.FindObjectsOfType<HierarchyRegistrationHelper>();
+            var hierarchyRegistrations = GameObject.FindObjectsOfType<RegistrationHelperGameObject>();
 
             foreach (var helper in hierarchyRegistrations)
             {
@@ -27,7 +28,7 @@ namespace NeCo.Helper
                 if (helper.IsDestoryOnBuild)
                     Destroy(helper.gameObject);
             }
-            if (m_isDestoryOnBuild)
+            if (IsDestoryOnBuild)
                 Destroy(this.gameObject, 1f);
 
             return container;

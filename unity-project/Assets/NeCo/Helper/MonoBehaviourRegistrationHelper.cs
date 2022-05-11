@@ -3,7 +3,7 @@ using NeCo;
 
 namespace NeCo.Helper
 {
-    public class MonoBehaviourRegistrationHelper : HierarchyRegistrationHelper
+    public class MonoBehaviourRegistrationHelper : RegistrationHelperGameObject
     {
         [System.Serializable]
         public class RegistrationParameter
@@ -18,12 +18,14 @@ namespace NeCo.Helper
         [SerializeField]
         RegistrationParameter[] m_parameters;
 
-        protected override void OnRegistration(INeCoBuilder container)
+        public override INeCoBuilder Registration(INeCoBuilder container = null)
         {
             foreach (var parameter in m_parameters)
             {
                 container.RegisterMonoBehaviour(parameter.instance, parameter.id, parameter.entryPoint);
             }
+
+            return container;
         }
     }
 }
