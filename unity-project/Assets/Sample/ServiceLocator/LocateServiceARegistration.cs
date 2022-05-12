@@ -3,9 +3,10 @@ using NeCo;
 
 public class LocateServiceARegistration : RegistrationHelperGameObject
 {
+    public LocateServiceA service;
     public override INeCoBuilder Registration(INeCoBuilder container = null)
     {
-        container.Register<LocateServiceA>(InstanceType.Singleton);
+        container.RegisterPrefab<ILocateServeSample>(service, null, true, false);
         return container;
     }
 }

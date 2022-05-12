@@ -1,7 +1,14 @@
-public class LocateServiceA
+using UnityEngine;
+
+public interface ILocateServeSample
+{
+    void Say();
+}
+
+public class LocateServiceA : MonoBehaviour, ILocateServeSample
 {
     public void Say()
     {
-        UnityEngine.Debug.Log("hello service locator");
+        UnityEngine.Debug.Log(this.name);
     }
 }
