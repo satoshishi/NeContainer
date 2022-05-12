@@ -30,7 +30,7 @@ public class As
     public void 複数の型をkeyにresolveできる()
     {
         var builder = NeCoUtilities.Create();
-        builder.Register<ISampleA, ImplementAB>(InstanceType.Singleton).As<ISampleB>();
+        builder.Register<ISampleA, ImplementAB>(InstanceType.Singleton).Or<ISampleB>();
 
         var resolver = builder.Build();
         var a = resolver.Resolve<ISampleA>();
@@ -46,7 +46,7 @@ public class As
     public void それぞれの型にidを設定できる()
     {
         var builder = NeCoUtilities.Create();
-        builder.Register<ISampleA, ImplementAB>(InstanceType.Singleton, "A").As<ISampleB>("B");
+        builder.Register<ISampleA, ImplementAB>(InstanceType.Singleton, "A").Or<ISampleB>("B");
 
         var resolver = builder.Build();
         var a = resolver.Resolve<ISampleA>("A");
