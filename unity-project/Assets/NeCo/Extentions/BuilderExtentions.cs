@@ -79,7 +79,7 @@ namespace NeCo
             return info;
         }
 
-        public static IRegistrationParamter RegisterMonoBehaviour(this INeCoBuilder builder, MonoBehaviour gameObject, string id = "", bool isThisEntryPoint = false)
+        public static IRegistrationParamter RegisterMonoBehaviour(this INeCoBuilder builder, object gameObject, string id = "", bool isThisEntryPoint = false)
         {
             Type type = gameObject.GetType();
 
@@ -95,7 +95,7 @@ namespace NeCo
             return info;
         }
 
-        public static IRegistrationParamter RegisterMonoBehaviour<FROM>(this INeCoBuilder builder, MonoBehaviour gameObject, string id = "", bool isThisEntryPoint = false)
+        public static IRegistrationParamter RegisterMonoBehaviour<FROM>(this INeCoBuilder builder, object gameObject, string id = "", bool isThisEntryPoint = false)
         {
             var info = CreateMonoBehaviourInstanceInfo(
                 from: new Dependencys(typeof(FROM), id),
@@ -109,7 +109,7 @@ namespace NeCo
             return info;
         }
 
-        public static IRegistrationParamter RegisterPrefab(this INeCoBuilder builder, MonoBehaviour gameObject, Transform parent = null, bool dontDestoryOnLoad = false, bool isTransient = true, string id = "", bool isThisEntryPoint = false)
+        public static IRegistrationParamter RegisterPrefab(this INeCoBuilder builder, object gameObject, Transform parent = null, bool dontDestoryOnLoad = false, bool isTransient = true, string id = "", bool isThisEntryPoint = false)
         {
             Type type = gameObject.GetType();
 
@@ -127,7 +127,7 @@ namespace NeCo
             return info;
         }
 
-        public static IRegistrationParamter RegisterPrefab<FROM>(this INeCoBuilder builder, MonoBehaviour gameObject, Transform parent = null, bool dontDestoryOnLoad = false, bool isTransient = true, string id = "", bool isThisEntryPoint = false)
+        public static IRegistrationParamter RegisterPrefab<FROM>(this INeCoBuilder builder, object gameObject, Transform parent = null, bool dontDestoryOnLoad = false, bool isTransient = true, string id = "", bool isThisEntryPoint = false)
         {
             var info = CreatePrefabInstanceInfo(
                 from: new Dependencys(typeof(FROM), id),
@@ -191,7 +191,7 @@ namespace NeCo
             return new DoNotInjecter();
         }
 
-        private static IRegistrationParamter CreateMonoBehaviourInstanceInfo(Dependencys from, Type to, InstanceType instanceType, MonoBehaviour gameObject, bool isThisEntryPoint = false)
+        private static IRegistrationParamter CreateMonoBehaviourInstanceInfo(Dependencys from, Type to, InstanceType instanceType, object gameObject, bool isThisEntryPoint = false)
         {
             if (!gameObject.GetType().IsMonoBehaviourSubClass())
                 throw new NotSupportedException("MonoBehaviourを継承していないクラスを指定しました");
@@ -204,12 +204,12 @@ namespace NeCo
                 to,
                 instanceType,
                 injecter,
-                gameObject,
+                gameObject as MonoBehaviour,
                 isThisEntryPoint
             );
         }
 
-        private static IRegistrationParamter CreatePrefabInstanceInfo(Dependencys from, Type to, InstanceType instanceType, MonoBehaviour gameObject, Transform parent = null, bool dontDestoryOnLoad = false, bool isThisEntryPoint = false)
+        private static IRegistrationParamter CreatePrefabInstanceInfo(Dependencys from, Type to, InstanceType instanceType, object gameObject, Transform parent = null, bool dontDestoryOnLoad = false, bool isThisEntryPoint = false)
         {
             if (!gameObject.GetType().IsMonoBehaviourSubClass())
                 throw new NotSupportedException("MonoBehaviourを継承していないクラスを指定しました");
@@ -222,7 +222,7 @@ namespace NeCo
                 to,
                 instanceType,
                 injecter,
-                gameObject,
+                gameObject as MonoBehaviour,
                 parent,
                 dontDestoryOnLoad,
                 isThisEntryPoint

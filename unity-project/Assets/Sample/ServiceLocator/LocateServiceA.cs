@@ -12,3 +12,11 @@ public class LocateServiceA : MonoBehaviour, ILocateServeSample
         UnityEngine.Debug.Log(this.name);
     }
 }
+
+public class LocateServiceB : ILocateServeSample
+{
+    public void Say()
+    {
+        UnityEngine.Debug.Log(this.GetHashCode());
+    }    
+}
