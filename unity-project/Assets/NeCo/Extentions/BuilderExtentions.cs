@@ -8,7 +8,7 @@ namespace NeCo
     public static class BuilderExtentions
     {
 
-        public static IRegistrationParamter As<FROM>(this IRegistrationParamter parameter, string id = "")
+        public static IRegistrationParamter Or<FROM>(this IRegistrationParamter parameter, string id = "")
         {
             parameter.From.Add(typeof(FROM), id);
 
@@ -109,7 +109,7 @@ namespace NeCo
             return info;
         }
 
-        public static IRegistrationParamter RegisterPrefab(this INeCoBuilder builder, MonoBehaviour gameObject, Transform parent, bool dontDestoryOnLoad, bool isTransient, string id = "", bool isThisEntryPoint = false)
+        public static IRegistrationParamter RegisterPrefab(this INeCoBuilder builder, MonoBehaviour gameObject, Transform parent = null, bool dontDestoryOnLoad = false, bool isTransient = true, string id = "", bool isThisEntryPoint = false)
         {
             Type type = gameObject.GetType();
 
@@ -127,7 +127,7 @@ namespace NeCo
             return info;
         }
 
-        public static IRegistrationParamter RegisterPrefab<FROM>(this INeCoBuilder builder, MonoBehaviour gameObject, Transform parent, bool dontDestoryOnLoad, bool isTransient, string id = "", bool isThisEntryPoint = false)
+        public static IRegistrationParamter RegisterPrefab<FROM>(this INeCoBuilder builder, MonoBehaviour gameObject, Transform parent = null, bool dontDestoryOnLoad = false, bool isTransient = true, string id = "", bool isThisEntryPoint = false)
         {
             var info = CreatePrefabInstanceInfo(
                 from: new Dependencys(typeof(FROM), id),
