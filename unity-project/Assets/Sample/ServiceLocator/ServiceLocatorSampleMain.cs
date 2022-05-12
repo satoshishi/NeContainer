@@ -6,7 +6,7 @@ public class ServiceLocatorSampleMain : MonoBehaviour
 {
     private void Awake()
     {
-        var service = ServiceLocator.Instance.Get<LocateServiceA>();
+        var service = ServiceLocator.Instance.Get<ILocateServeSample>();
         service.Say();   
     }
 }

@@ -8,9 +8,9 @@ namespace NeCo
     public static class BuilderExtentions
     {
 
-        public static IRegistrationParamter As<TO>(this IRegistrationParamter parameter, string id = "")
+        public static IRegistrationParamter Or<FROM>(this IRegistrationParamter parameter, string id = "")
         {
-            parameter.From.Add(typeof(TO),id);
+            parameter.From.Add(typeof(FROM), id);
 
             return parameter;
         }
@@ -65,11 +65,11 @@ namespace NeCo
             return info;
         }
 
-        public static IRegistrationParamter Register<TO>(this INeCoBuilder builder, object instance, string id = "", bool isThisEntryPoint = false)
+        public static IRegistrationParamter Register<FROM>(this INeCoBuilder builder, object instance, string id = "", bool isThisEntryPoint = false)
         {
             var info = CreateSystemInstanceInfo(
-                from: new Dependencys(instance.GetType(), id),
-                to: typeof(TO),
+                from: new Dependencys(typeof(FROM), id),
+                to: instance.GetType(),
                 instanceType: InstanceType.Constant,
                 isThisEntryPoint: isThisEntryPoint,
                 instance: instance
@@ -95,11 +95,11 @@ namespace NeCo
             return info;
         }
 
-        public static IRegistrationParamter RegisterMonoBehaviour<TO>(this INeCoBuilder builder, MonoBehaviour gameObject, string id = "", bool isThisEntryPoint = false)
+        public static IRegistrationParamter RegisterMonoBehaviour<FROM>(this INeCoBuilder builder, MonoBehaviour gameObject, string id = "", bool isThisEntryPoint = false)
         {
             var info = CreateMonoBehaviourInstanceInfo(
-                from: new Dependencys(gameObject.GetType(), id),
-                to: typeof(TO),
+                from: new Dependencys(typeof(FROM), id),
+                to: gameObject.GetType(),
                 instanceType: InstanceType.Constant,
                 isThisEntryPoint: isThisEntryPoint,
                 gameObject: gameObject
@@ -109,7 +109,7 @@ namespace NeCo
             return info;
         }
 
-        public static IRegistrationParamter RegisterPrefab(this INeCoBuilder builder, MonoBehaviour gameObject, Transform parent, bool dontDestoryOnLoad, bool isTransient, string id = "", bool isThisEntryPoint = false)
+        public static IRegistrationParamter RegisterPrefab(this INeCoBuilder builder, MonoBehaviour gameObject, Transform parent = null, bool dontDestoryOnLoad = false, bool isTransient = true, string id = "", bool isThisEntryPoint = false)
         {
             Type type = gameObject.GetType();
 
@@ -127,11 +127,11 @@ namespace NeCo
             return info;
         }
 
-        public static IRegistrationParamter RegisterPrefab<TO>(this INeCoBuilder builder, MonoBehaviour gameObject, Transform parent, bool dontDestoryOnLoad, bool isTransient, string id = "", bool isThisEntryPoint = false)
+        public static IRegistrationParamter RegisterPrefab<FROM>(this INeCoBuilder builder, MonoBehaviour gameObject, Transform parent = null, bool dontDestoryOnLoad = false, bool isTransient = true, string id = "", bool isThisEntryPoint = false)
         {
             var info = CreatePrefabInstanceInfo(
-                from: new Dependencys(gameObject.GetType(), id),
-                to: typeof(TO),
+                from: new Dependencys(typeof(FROM), id),
+                to: gameObject.GetType(),
                 instanceType: isTransient ? InstanceType.Transient : InstanceType.Constant,
                 isThisEntryPoint: isThisEntryPoint,
                 gameObject: gameObject,
@@ -227,7 +227,7 @@ namespace NeCo
                 dontDestoryOnLoad,
                 isThisEntryPoint
             );
-        }        
+        }
 
         private static IRegistrationParamter CreateSystemInstanceInfo(Dependencys from, Type to, InstanceType instanceType, object instance = null, bool isThisEntryPoint = false)
         {
