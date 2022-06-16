@@ -28,7 +28,7 @@ namespace NeCo.Helper
         {
             foreach (var parameter in m_parameters)
             {
-                container.RegisterPrefab(parameter.instance, parameter.parent, parameter.dontDestoryOnLoad, parameter.isTransient, parameter.id, parameter.entryPoint);
+                container.RegisterPrefab(parameter.instance, parameter.parent, parameter.dontDestoryOnLoad, parameter.isTransient, parameter.entryPoint, parameter.id);
             }
 
             return container;

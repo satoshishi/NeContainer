@@ -27,7 +27,7 @@ namespace NeCo
             if (Match(key, out VALUE value))
                 return value;
 
-            throw new KeyNotFoundException();
+            throw new KeyNotFoundException($"{typeof(KEY)}");
         }
     }
 }

@@ -22,7 +22,7 @@ namespace NeCo.Helper
         {
             foreach (var parameter in m_parameters)
             {
-                container.RegisterMonoBehaviour(parameter.instance, parameter.id, parameter.entryPoint);
+                container.RegisterMonoBehaviour(parameter.instance, parameter.entryPoint, parameter.id);
             }
 
             return container;
