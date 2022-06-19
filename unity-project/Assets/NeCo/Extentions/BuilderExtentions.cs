@@ -73,7 +73,7 @@ namespace NeCo
         public static IRegistrationParamter Register<FROM, TO>(this INeCoBuilder builder, InstanceType instanceType, bool isThisEntryPoint = false, string id = "")
         {
             if (instanceType == InstanceType.Constant)
-                throw new NotSupportedException("Constantとして取り扱うインスタンスの指定がありません");
+                throw new NotSupportedException("Constantとして取り扱うインスタンスの指定がありません : " + typeof(TO));
 
             var info = CreateSystemInstanceInfo(
                 from: new Dependencys(typeof(FROM), id),
