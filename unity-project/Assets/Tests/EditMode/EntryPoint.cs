@@ -15,7 +15,7 @@ public class EntryPoint
         public string tex;
 
         [Inject]
-        public SampleA(ISample b,string text)
+        public SampleA(ISample b, string text)
         {
             this.B = b;
             this.tex = text;
@@ -49,12 +49,12 @@ public class EntryPoint
     {
         var builder = NeCoUtilities.Create();
         builder.Register<SampleA>(InstanceType.Singleton);
-        builder.Register<ISample,SampleB>(InstanceType.Singleton);
+        builder.Register<ISample, SampleB>(InstanceType.Singleton);
         builder.Register("hello");
-        builder.Register<SampleEntry>(InstanceType.Singleton,"",true);
+        builder.Register<SampleEntry>(InstanceType.Singleton, true, "");
 
         builder.Build();
 
-        LogAssert.Expect(LogType.Log,"hello");
+        LogAssert.Expect(LogType.Log, "hello");
     }
 }

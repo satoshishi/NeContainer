@@ -1,0 +1,21 @@
+namespace #SCRIPT_NAMESPACE#
+{
+    using NeCo;
+    using NeCo.Helper;
+
+    public class #SCRIPT_NAME# : RegistrationHelperGameObject
+    {
+        public override INeCoBuilder Registration(INeCoBuilder container = null)
+        {
+            return container;
+        }
+
+        public override INeCoResolver RegistrationAndBuild()
+        {
+            INeCoBuilder builder = NeCoUtilities.Create();
+            this.Registration(builder);
+
+            return builder.Build();
+        }
+    }
+}

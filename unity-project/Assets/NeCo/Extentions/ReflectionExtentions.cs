@@ -12,6 +12,20 @@ namespace NeCo
             return target.IsSubclassOf(typeof(MonoBehaviour));
         }
 
+        internal static bool HasConstructor(this Type target, out ConstructorInfo constructorInfo)
+        {
+            var constructors = target.GetConstructors();
+            constructorInfo = null;
+
+            if(constructors != null && constructors.Length > 0)
+            {
+                constructorInfo = constructors[0];
+                return true;
+            }
+
+            return false;
+        }        
+
         internal static bool HasInjectionAttributeInConstructor(this Type target, out ConstructorInfo constructorInfo)
         {
             var constructors = target.GetConstructors();
