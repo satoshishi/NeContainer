@@ -3,24 +3,23 @@ namespace NeCo.Helper.Edior
     using UnityEngine;
     using UnityEditor;
 
-    public class ScriptPath
+    [CreateAssetMenu(fileName = "ScriptPath", menuName = "NeCo/Editor/ScriptPath")]
+    public class ScriptPath : ScriptableObject
     {
-        public string Value { get; private set; } = string.Empty;
+        [SerializeField]
+        private string value;
 
-        private readonly string labelName;
+        [SerializeField]
+        private string labelName;
 
-        public ScriptPath(string value, string labelName)
-        {
-            this.Value = value;
-            this.labelName = labelName;
-        }
+        public string Value => this.value;
 
-        public void Update()
+        public void UpdateUI()
         {
             if (GUILayout.Button(this.labelName))
             {
                 var filePath = EditorUtility.OpenFolderPanel("対象ディレクトリを選択", Application.dataPath, "");
-                this.Value = filePath;
+                this.value = filePath;
             }
 
             EditorGUILayout.LabelField(this.Value);

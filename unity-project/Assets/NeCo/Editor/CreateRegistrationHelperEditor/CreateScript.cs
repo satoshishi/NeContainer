@@ -3,23 +3,19 @@ namespace NeCo.Helper.Edior
     using UnityEngine;
     using UnityEditor;
 
-    public class CreateScript
+    [CreateAssetMenu(fileName = "CreateScript", menuName = "NeCo/Editor/CreateScript")]
+    public class CreateScript : ScriptableObject
     {
-        private readonly string labelName;
+        [SerializeField]
+        private string labelName;
 
-        public CreateScript(string labelName)
-        {
-            this.labelName = labelName;
-        }
-
-        public void Update(ScriptName scriptName, NameSpaceName nameSpaceName, ScriptPath scriptPath)
+        public void UpdateUI(ScriptName scriptName, NameSpaceName nameSpaceName, ScriptPath scriptPath)
         {
             if (GUILayout.Button(this.labelName))
             {
                 Script createdScirpt = Script.CreateRaw();
                 createdScirpt = createdScirpt.SetName(scriptName);
                 createdScirpt = createdScirpt.SetNameSpace(nameSpaceName);
-
                 createdScirpt.OutPut(scriptName, scriptPath);
             }
         }

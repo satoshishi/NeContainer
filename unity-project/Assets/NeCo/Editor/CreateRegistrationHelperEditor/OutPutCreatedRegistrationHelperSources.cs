@@ -9,7 +9,7 @@ namespace NeCo.Helper.Edior
         {
             string containsFileNamePath = scriptPath.Combine(scriptName);
 
-            File.WriteAllText(containsFileNamePath, body.Value);            
+            File.WriteAllText(containsFileNamePath, body.Value);           
             AssetDatabase.Refresh();
         }        
     }

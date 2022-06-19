@@ -3,21 +3,20 @@ namespace NeCo.Helper.Edior
     using UnityEngine;
     using UnityEditor;
 
-    public class NameSpaceName
+    [CreateAssetMenu(fileName = "NameSpaceName", menuName = "NeCo/Editor/NameSpaceName")]
+    public class NameSpaceName : ScriptableObject
     {
-        public string Value {get; private set;} = string.Empty;
+        [SerializeField]
+        private string value;
 
-        private readonly string labelName;
+        [SerializeField]
+        private string labelName;
 
-        public NameSpaceName(string value, string labelName)
+        public string Value => this.value;
+
+        public void UpdateUI()
         {
-            this.Value = value;
-            this.labelName = labelName;
-        }
-
-        public void Update()
-        {
-            this.Value = EditorGUILayout.TextField(this.labelName, this.Value);            
+            this.value = EditorGUILayout.TextField(this.labelName, this.Value);            
         }      
     }
 }
