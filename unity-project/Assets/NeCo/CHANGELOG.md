@@ -1,6 +1,11 @@
 # ChangeLog
 
 ## [1.0.6] - 2022-05-09
+### RegistrationHelperのスクリプトとPrefabを自動生成するEditor拡張を追加
+- RegistrationHelperのスクリプトとPrefabを自動生成するEditor拡張を追加
+- BuilderへのRegistrationメソッドの引数をリファクタリング
+
+## [1.0.6] - 2022-05-09
 ### RegistrationHelperの基底クラスをリファクタリング
 - RegistrationHelperのinterfaceを定義し、GameObject用とScriptableObjectがそれを継承する形に
 
