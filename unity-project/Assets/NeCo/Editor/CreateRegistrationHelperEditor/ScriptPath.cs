@@ -1,5 +1,6 @@
-namespace NeCo.Helper.Edior
+namespace NeCo.Helper.Editor
 {
+    using System;
     using UnityEngine;
     using UnityEditor;
 
@@ -29,5 +30,10 @@ namespace NeCo.Helper.Edior
         {
             return this.Value + "/" + scriptName.Value + ".cs";
         }
+
+        public bool Invalid()
+        {
+            return string.IsNullOrEmpty(this.value);
+        }        
     }
 }

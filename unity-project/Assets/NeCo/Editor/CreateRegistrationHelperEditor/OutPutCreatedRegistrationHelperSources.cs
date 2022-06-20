@@ -1,4 +1,4 @@
-namespace NeCo.Helper.Edior
+namespace NeCo.Helper.Editor
 {
     using System.IO;
     using UnityEditor;

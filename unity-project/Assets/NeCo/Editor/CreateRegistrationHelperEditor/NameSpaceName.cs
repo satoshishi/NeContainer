@@ -1,4 +1,4 @@
-namespace NeCo.Helper.Edior
+namespace NeCo.Helper.Editor
 {
     using UnityEngine;
     using UnityEditor;
@@ -18,5 +18,10 @@ namespace NeCo.Helper.Edior
         {
             this.value = EditorGUILayout.TextField(this.labelName, this.Value);            
         }      
+
+        public bool Invalid()
+        {
+            return string.IsNullOrEmpty(this.value);
+        }        
     }
 }
