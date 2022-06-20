@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e779321419a04196aecb937b2e59e17, type: 3}
   m_Name: CreateScript
   m_EditorClassIdentifier: 
-  labelName: "\u30B9\u30AF\u30EA\u30D7\u30C8\u3092\u4F5C\u6210"
+  labelName: "\u30B9\u30AF\u30EA\u30D7\u30C8\u3068Prefab\u3092\u4F5C\u6210"

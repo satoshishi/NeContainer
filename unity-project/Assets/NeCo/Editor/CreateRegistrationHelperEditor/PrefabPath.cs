@@ -1,4 +1,4 @@
-namespace NeCo.Helper.Edior
+namespace NeCo.Helper.Editor
 {
     using UnityEngine;
     using UnityEditor;
@@ -25,5 +25,15 @@ namespace NeCo.Helper.Edior
 
             EditorGUILayout.LabelField(this.Value);
         }
+
+        public string Combine(ScriptName scriptName)
+        {
+            return this.Value + "/" + scriptName.Value + ".prefab";
+        }        
+
+        public bool Invalid()
+        {
+            return string.IsNullOrEmpty(this.value);
+        }        
     }
 }

@@ -1,4 +1,4 @@
-namespace NeCo.Helper.Edior
+namespace NeCo.Helper.Editor
 {
     using UnityEngine;
     using UnityEditor;
@@ -17,6 +17,17 @@ namespace NeCo.Helper.Edior
         public void UpdateUI()
         {
             this.value = EditorGUILayout.TextField(this.labelName, this.Value);            
+        }
+
+        public bool Invalid()
+        {
+            return string.IsNullOrEmpty(this.value);
+        }
+
+        public string Combine(NameSpaceName nameSpaceName)
+        {
+            string _namespace = string.IsNullOrEmpty(nameSpaceName.Value) ? "" : nameSpaceName.Value + ".";
+            return _namespace + this.value;
         }
     }
 }
