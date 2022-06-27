@@ -1,6 +1,9 @@
 # ChangeLog
 
-## [1.0.6] - 2022-05-09
+## [1.1.1] - 2022-06-27
+### Edior拡張が原因でビルド時にエラーが発生する問題の対応
+
+## [1.0.0] - 2022-05-09
 ### RegistrationHelperのスクリプトとPrefabを自動生成するEditor拡張を追加
 - RegistrationHelperのスクリプトとPrefabを自動生成するEditor拡張を追加
 - BuilderへのRegistrationメソッドの引数をリファクタリング
