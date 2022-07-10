@@ -14,7 +14,7 @@ namespace NeCo
 
         internal static bool HasConstructor(this Type target, out ConstructorInfo constructorInfo)
         {
-            var constructors = target.GetConstructors();
+            var constructors = target.GetConstructors(BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public);;
             constructorInfo = null;
 
             if(constructors != null && constructors.Length > 0)
@@ -28,7 +28,7 @@ namespace NeCo
 
         internal static bool HasInjectionAttributeInConstructor(this Type target, out ConstructorInfo constructorInfo)
         {
-            var constructors = target.GetConstructors();
+            var constructors = target.GetConstructors(BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public);
             constructorInfo = null;
 
             foreach (var constructor in constructors)
@@ -45,7 +45,7 @@ namespace NeCo
 
         internal static bool HasInjectionAttributeInProperty(this Type target, out (PropertyInfo, string)[] PropertyInfos)
         {
-            var propertys = target.GetProperties();
+            var propertys = target.GetProperties(BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public);
             List<(PropertyInfo, string)> targets = new List<(PropertyInfo, string)>();
 
             foreach (var property in propertys)
@@ -70,7 +70,7 @@ namespace NeCo
 
         internal static bool HasInjectionAttributeInMethod(this Type target, out MethodInfo methodInfo)
         {
-            var methods = target.GetMethods();
+            var methods = target.GetMethods(BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public);
             methodInfo = null;
 
             foreach (var method in methods)
