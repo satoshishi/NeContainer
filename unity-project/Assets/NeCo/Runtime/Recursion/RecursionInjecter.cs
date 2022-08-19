@@ -37,14 +37,14 @@ namespace NeCo.Recursion
             return target.Info.IsSingleton() || target.Info.IsConstant() ? target.Provide(history, caches) : null;
         }
 
-        protected abstract object CreateInstance(object instance, List<object> args, Dependencys parameter);
+        internal abstract object CreateInstance(object instance, List<object> args, Dependencys parameter);
 
         public virtual void Dispose() { }
     }
 
     internal sealed class DoNotInjecter : RecursionInjecter
     {
-        protected override object CreateInstance(object instance, List<object> args, Dependencys parameter)
+        internal override object CreateInstance(object instance, List<object> args, Dependencys parameter)
         {
             return instance;
         }
@@ -57,7 +57,7 @@ namespace NeCo.Recursion
 
     internal sealed class FunctionInjecter : RecursionInjecter
     {
-        protected override object CreateInstance(object instance, List<object> args, Dependencys parameter)
+        internal override object CreateInstance(object instance, List<object> args, Dependencys parameter)
         {
             INeCoResolver resolver = args[0] as INeCoResolver;
             Func<INeCoResolver, object> func = instance as Func<INeCoResolver, object>;
@@ -77,7 +77,7 @@ namespace NeCo.Recursion
     {
         private ConstructorInfo constructor = null;
 
-        protected override object CreateInstance(object instance, List<object> args, Dependencys parameter)
+        internal override object CreateInstance(object instance, List<object> args, Dependencys parameter)
         {
             constructor.Invoke(instance, args.ToArray());
 
@@ -102,7 +102,7 @@ namespace NeCo.Recursion
     {
         private (PropertyInfo, string)[] propertys = null;
 
-        protected override object CreateInstance(object instance, List<object> args, Dependencys parameter)
+        internal override object CreateInstance(object instance, List<object> args, Dependencys parameter)
         {
             for (int i = 0; i < propertys.Length; i++)
             {
@@ -130,7 +130,7 @@ namespace NeCo.Recursion
     {
         private MethodInfo method = null;
 
-        protected override object CreateInstance(object instance, List<object> args, Dependencys parameter)
+        internal override object CreateInstance(object instance, List<object> args, Dependencys parameter)
         {
             method.Invoke(instance, args.ToArray());
 

@@ -205,6 +205,8 @@ namespace NeCo
         public override IRegistrationParamter Info => info;
         private FunctionInstanceParameter info;
 
+        private Func<INeCoResolver, object> func;        
+
         public FunctionInstanceProvider(FunctionInstanceParameter info)
         {
             this.info = info;
@@ -212,20 +214,17 @@ namespace NeCo
 
         protected override object CreateInstance(ProviderCaches history, ProviderCaches caches)
         {
-            return info.IsConstant() ? info.Instance : FormatterServices.GetUninitializedObject(Info.To);
-        }
-
-        protected override void SetInstance(object instance)
-        {
-            if ((info.IsSingleton() || info.IsConstant()))
-                Instance = instance;
+            return info.Instance;
         }
 
         protected override object GetInstance()
         {
-            if (Instance != null && (info.IsSingleton() || info.IsConstant()))
-                return Instance;
             return null;
+        }
+
+        protected override void SetInstance(object instance)
+        {
+            
         }
     }    
 
