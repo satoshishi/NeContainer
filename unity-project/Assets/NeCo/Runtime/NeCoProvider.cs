@@ -200,6 +200,35 @@ namespace NeCo
         }
     }
 
+    internal sealed class FunctionInstanceProvider : NeCoProvider
+    {
+        public override IRegistrationParamter Info => info;
+        private FunctionInstanceParameter info;
+
+        public FunctionInstanceProvider(FunctionInstanceParameter info)
+        {
+            this.info = info;
+        }
+
+        protected override object CreateInstance(ProviderCaches history, ProviderCaches caches)
+        {
+            return info.IsConstant() ? info.Instance : FormatterServices.GetUninitializedObject(Info.To);
+        }
+
+        protected override void SetInstance(object instance)
+        {
+            if ((info.IsSingleton() || info.IsConstant()))
+                Instance = instance;
+        }
+
+        protected override object GetInstance()
+        {
+            if (Instance != null && (info.IsSingleton() || info.IsConstant()))
+                return Instance;
+            return null;
+        }
+    }    
+
     internal sealed class ResolverInstanceProvider : NeCoProvider
     {
         public override IRegistrationParamter Info => info;
