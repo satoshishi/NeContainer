@@ -55,6 +55,24 @@ namespace NeCo.Recursion
         }
     }
 
+    internal sealed class FunctionInjecter : RecursionInjecter
+    {
+        protected override object CreateInstance(object instance, List<object> args, Dependencys parameter)
+        {
+            INeCoResolver resolver = args[0] as INeCoResolver;
+            Func<INeCoResolver, object> func = instance as Func<INeCoResolver, object>;
+
+            return func.Invoke(resolver);
+        }        
+        public FunctionInjecter()
+        {
+            injectionTarget = new Dependencys();            
+
+            var source = new Dependencys.Source(typeof(INeCoResolver), "");
+            injectionTarget.Add((source.Type, source.Id), source);            
+        }
+    }
+
     internal sealed class ConstructInjecter : RecursionInjecter
     {
         private ConstructorInfo constructor = null;

@@ -99,7 +99,7 @@ namespace NeCo
         public static IRegistrationParamter Register(this INeCoBuilder builder, object instance, string id = "")
         {
             return builder.Register(instance, false, id);
-        }        
+        }
 
         public static IRegistrationParamter Register(this INeCoBuilder builder, object instance, bool isThisEntryPoint = false, string id = "")
         {
@@ -130,7 +130,7 @@ namespace NeCo
         public static IRegistrationParamter Register<FROM>(this INeCoBuilder builder, object instance, string id = "")
         {
             return builder.Register<FROM>(instance, false, id);
-        }        
+        }
 
         public static IRegistrationParamter Register<FROM>(this INeCoBuilder builder, object instance, bool isThisEntryPoint = false, string id = "")
         {
@@ -159,7 +159,7 @@ namespace NeCo
         public static IRegistrationParamter RegisterMonoBehaviour(this INeCoBuilder builder, object instance, string id = "")
         {
             return builder.Register(instance, false, id);
-        }                
+        }
 
         public static IRegistrationParamter RegisterMonoBehaviour(this INeCoBuilder builder, object gameObject, bool isThisEntryPoint = false, string id = "")
         {
@@ -189,7 +189,7 @@ namespace NeCo
         public static IRegistrationParamter RegisterMonoBehaviour<FROM>(this INeCoBuilder builder, object instance, string id = "")
         {
             return builder.Register<FROM>(instance, false, id);
-        }                
+        }
 
         public static IRegistrationParamter RegisterMonoBehaviour<FROM>(this INeCoBuilder builder, object gameObject, bool isThisEntryPoint = false, string id = "")
         {
@@ -215,7 +215,7 @@ namespace NeCo
             return builder.RegisterPrefab(gameObject, parent, dontDestoryOnLoad, isTransient, isThisEntryPoint, "");
         }
 
-        public static IRegistrationParamter RegisterPrefab(this INeCoBuilder builder, object gameObject, Transform parent = null, bool dontDestoryOnLoad = false, bool isTransient = true,  bool isThisEntryPoint = false, string id = "")
+        public static IRegistrationParamter RegisterPrefab(this INeCoBuilder builder, object gameObject, Transform parent = null, bool dontDestoryOnLoad = false, bool isTransient = true, bool isThisEntryPoint = false, string id = "")
         {
             Type type = gameObject.GetType();
 
@@ -243,7 +243,7 @@ namespace NeCo
             return builder.RegisterPrefab<FROM>(gameObject, parent, dontDestoryOnLoad, isTransient, isThisEntryPoint, "");
         }
 
-        public static IRegistrationParamter RegisterPrefab<FROM>(this INeCoBuilder builder, object gameObject, Transform parent = null, bool dontDestoryOnLoad = false, bool isTransient = true,  bool isThisEntryPoint = false, string id = "")
+        public static IRegistrationParamter RegisterPrefab<FROM>(this INeCoBuilder builder, object gameObject, Transform parent = null, bool dontDestoryOnLoad = false, bool isTransient = true, bool isThisEntryPoint = false, string id = "")
         {
             var info = CreatePrefabInstanceInfo(
                 from: new Dependencys(typeof(FROM), id),
@@ -259,31 +259,14 @@ namespace NeCo
             return info;
         }
 
-        public static IRegistrationParamter RegisterFunc<INPUT, OUTPUT>(this INeCoBuilder builder, Func<INPUT, OUTPUT> func, string id = "", bool isThisEntryPoint = false)
+        public static IRegistrationParamter RegisterFunc<INPUT, OUTPUT>(this INeCoBuilder builder, Func<INeCoResolver, Func<INPUT, OUTPUT>> func, string id = "")
         {
-            var type = typeof(Func<INPUT, OUTPUT>);
+            Type type = typeof(Func<INPUT, OUTPUT>);
 
-            var info = CreateSystemInstanceInfo(
+            var info = CreateFuncInstanceInfo(
                 from: new Dependencys(type, id),
                 to: type,
                 instanceType: InstanceType.Constant,
-                isThisEntryPoint: isThisEntryPoint,
-                instance: func
-            );
-
-            builder.Register(info);
-            return info;
-        }
-
-        public static IRegistrationParamter RegisterFunc<INPUT, OUTPUT>(this INeCoBuilder builder, Func<INeCoResolver, Func<INPUT, OUTPUT>> func, string id = "", bool isThisEntryPoint = false)
-        {
-            Type type = typeof(Func<INeCoResolver, Func<INPUT, OUTPUT>>);
-
-            var info = CreateSystemInstanceInfo(
-                from: new Dependencys(type, id),
-                to: type,
-                instanceType: InstanceType.Constant,
-                isThisEntryPoint: isThisEntryPoint,
                 instance: func
             );
 
@@ -351,7 +334,7 @@ namespace NeCo
         private static IRegistrationParamter CreateSystemInstanceInfo(Dependencys from, Type to, InstanceType instanceType, object instance = null, bool isThisEntryPoint = false)
         {
             if (instance != null && instance.GetType().IsMonoBehaviourSubClass())
-                throw new NotSupportedException("MonoBehaviourを継承しているクラスを指定しました : "  + instance.GetType());
+                throw new NotSupportedException("MonoBehaviourを継承しているクラスを指定しました : " + instance.GetType());
 
             INeCoInjecter injecter = CreateInjecter(to);
 
@@ -364,6 +347,19 @@ namespace NeCo
                 instance,
                 isThisEntryPoint
             );
+        }
+
+        private static IRegistrationParamter CreateFuncInstanceInfo(Dependencys from, Type to, InstanceType instanceType, Func<INeCoResolver, object> instance = null)
+        {
+            INeCoInjecter injecter = new FunctionInjecter();
+
+            return new FunctionInstanceParameter(
+                from,
+                to,
+                instanceType,
+                injecter,
+                instance,
+                false);
         }
 
         #endregion

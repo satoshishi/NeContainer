@@ -18,6 +18,11 @@ namespace NeCo
                 return new PrefabInstanceProvider(info as PrefabInstanceParameter);
             }
 
+            if(info is FunctionInstanceParameter)
+            {
+                return new FunctionInstanceProvider(info as FunctionInstanceParameter);
+            }
+
             return new SystemInstanceProvider(info as SystemInstanceParameter);
         }
     }

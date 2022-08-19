@@ -189,6 +189,82 @@ namespace NeCo
         }
     }
 
+    internal sealed class FunctionInstanceParameter : IRegistrationParamter
+    {
+        public Func<INeCoResolver, object> Instance
+        {
+            get => instance;
+        }
+        private Func<INeCoResolver, object> instance;
+
+        /// <summary>
+        /// 依存元
+        /// </summary>
+        /// <value></value>
+        Dependencys IRegistrationParamter.From
+        {
+            get => from;
+        }
+        private Dependencys from;
+
+        /// <summary>
+        /// 依存先
+        /// </summary>
+        /// <value></value>
+        public Type To
+        {
+            get => to;
+        }
+        private Type to;
+
+        /// <summary>
+        /// インスタンスの生成方法
+        /// </summary>
+        /// <value></value>
+        public InstanceType InstanceType
+        {
+            get => instanceType;
+        }
+        private InstanceType instanceType;
+
+        /// <summary>
+        /// 依存注入クラス
+        /// </summary>
+        /// <value></value>
+        INeCoInjecter IRegistrationParamter.Injecter
+        {
+            get => injecter;
+        }
+        private INeCoInjecter injecter;
+
+        public bool IsThisEntryPoint
+        {
+            get => isThisEntryPoint;
+        }
+        private bool isThisEntryPoint;
+
+        public FunctionInstanceParameter(
+            Dependencys from,
+            Type to,
+            InstanceType instanceType,
+            INeCoInjecter injecter,
+            Func<INeCoResolver, object> instance,
+            bool isThisEntryPoint)
+        {
+            this.from = from;
+            this.to = to;
+            this.instanceType = instanceType;
+            this.injecter = injecter;
+            this.instance = instance;
+            this.isThisEntryPoint = isThisEntryPoint;
+        }
+
+        public FunctionInstanceParameter(Type from)
+        {
+            this.from = new Dependencys(from,"");
+        }
+    }    
+
     internal sealed class PrefabInstanceParameter : IRegistrationParamter
     {
         public MonoBehaviour GameObject
