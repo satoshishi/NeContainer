@@ -17,10 +17,12 @@ public class RegistrationInPlayMode
         var component = target.AddComponent<PlayModeTestGameObject>();
 
         INeCoBuilder builder = NeCoUtilities.Create();
-        builder.RegisterMonoBehaviour<IPlayModeInstance>(component);
+        builder.RegistrationMonoBehaviour_AsConstant<IPlayModeInstance>(component);
+
+        builder.RegistrationAsSingleton<RequestMonobehaviourClass>();
 
         INeCoResolver resolver = builder.Build();
-        var result = resolver.Resolve<IPlayModeInstance>();
+        var result = resolver.Resolve<RequestMonobehaviourClass>();
 
         Assert.IsNotNull(result);
 
@@ -36,10 +38,12 @@ public class RegistrationInPlayMode
         var component = target.AddComponent<PlayModeTestGameObject>();
 
         INeCoBuilder builder = NeCoUtilities.Create();
-        builder.RegisterPrefab<IPlayModeInstance>(component, null, false, false);
+        builder.RegistrationPrefab_AsSingleton<IPlayModeInstance>(component, null);
+
+        builder.RegistrationAsSingleton<RequestMonobehaviourClass>();        
 
         INeCoResolver resolver = builder.Build();
-        var result = resolver.Resolve<IPlayModeInstance>();
+        var result = resolver.Resolve<RequestMonobehaviourClass>();
 
         Assert.IsNotNull(result);
 

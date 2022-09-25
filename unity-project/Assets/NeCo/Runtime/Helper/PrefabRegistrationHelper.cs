@@ -14,8 +14,6 @@ namespace NeCo.Helper
 
             public Transform parent;
 
-            public string id;
-
             public bool isTransient;
 
             public bool dontDestoryOnLoad;
@@ -28,7 +26,14 @@ namespace NeCo.Helper
         {
             foreach (var parameter in m_parameters)
             {
-                container.RegisterPrefab(parameter.instance, parameter.parent, parameter.dontDestoryOnLoad, parameter.isTransient, parameter.entryPoint, parameter.id);
+                if (parameter.isTransient)
+                {
+                    container.RegistrationPrefab_AsTransient(parameter.instance, parameter.parent, parameter.entryPoint, parameter.dontDestoryOnLoad);
+                }
+                else
+                {
+                    container.RegistrationPrefab_AsSingleton(parameter.instance, parameter.parent, parameter.entryPoint, parameter.dontDestoryOnLoad);
+                }
             }
 
             return container;

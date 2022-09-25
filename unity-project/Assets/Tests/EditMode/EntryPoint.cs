@@ -48,10 +48,10 @@ public class EntryPoint
     public void BuildのタイミングでEntryPointがResolveされる()
     {
         var builder = NeCoUtilities.Create();
-        builder.Register<SampleA>(InstanceType.Singleton);
-        builder.Register<ISample, SampleB>(InstanceType.Singleton);
-        builder.Register("hello");
-        builder.Register<SampleEntry>(InstanceType.Singleton, true, "");
+        builder.RegistrationAsSingleton<SampleA>();
+        builder.RegistrationAsSingleton<ISample, SampleB>();
+        builder.RegistrationAsConstant("hello");
+        builder.RegistrationAsSingleton<SampleEntry>(true);
 
         builder.Build();
 

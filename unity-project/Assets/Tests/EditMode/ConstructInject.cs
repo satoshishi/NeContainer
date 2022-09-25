@@ -122,8 +122,8 @@ public class ConstructInject
     {
         var builder = NeCoUtilities.Create();
 
-        builder.Register<SampleClassA>(InstanceType.Singleton);
-        builder.Register<SampleClassB>(InstanceType.Singleton);
+        builder.RegistrationAsSingleton<SampleClassA>();
+        builder.RegistrationAsSingleton<SampleClassB>();
 
         var resolver = builder.Build();
         var a = resolver.Resolve<SampleClassA>();
@@ -137,8 +137,8 @@ public class ConstructInject
     {
         var builder = NeCoUtilities.Create();
 
-        builder.Register<SampleClassC>(InstanceType.Singleton);
-        builder.Register<SampleClassD>(InstanceType.Singleton);
+        builder.RegistrationAsSingleton<SampleClassC>();
+        builder.RegistrationAsSingleton<SampleClassD>();
 
         var resolver = builder.Build();
 
@@ -155,8 +155,8 @@ public class ConstructInject
     {
         var builder = NeCoUtilities.Create();
 
-        builder.Register<SampleClassA>(InstanceType.Singleton);
-        builder.Register<SampleClassB>(InstanceType.Transient);
+        builder.RegistrationAsTransient<SampleClassA>();
+        builder.RegistrationAsTransient<SampleClassB>();
 
         var resolver = builder.Build();
         var a = resolver.Resolve<SampleClassA>();
@@ -172,8 +172,8 @@ public class ConstructInject
     {
         var builder1 = NeCoUtilities.Create();
 
-        builder1.Register<SampleClassC>(InstanceType.Singleton);
-        builder1.Register<SampleClassD>(InstanceType.Transient);
+        builder1.RegistrationAsSingleton<SampleClassC>();
+        builder1.RegistrationAsTransient<SampleClassD>();
 
         var resolver1 = builder1.Build();
 
@@ -189,8 +189,8 @@ public class ConstructInject
 
         var builder2 = NeCoUtilities.Create();
 
-        builder2.Register<SampleClassC>(InstanceType.Singleton);
-        builder2.Register<SampleClassD>(InstanceType.Transient);
+        builder2.RegistrationAsSingleton<SampleClassC>();
+        builder2.RegistrationAsTransient<SampleClassD>();
 
         var resolver2 = builder2.Build();
 
@@ -207,10 +207,10 @@ public class ConstructInject
     {
         var builder = NeCoUtilities.Create();
 
-        builder.Register<SampleClassE>(InstanceType.Singleton);
+        builder.RegistrationAsSingleton<SampleClassE>();
 
         SampleClassF instance = new SampleClassF();
-        builder.Register(instance);
+        builder.RegistrationAsConstant(instance);
 
         var resolver = builder.Build();
         var e = resolver.Resolve<SampleClassE>();
@@ -225,8 +225,8 @@ public class ConstructInject
         var builder = NeCoUtilities.Create();
 
         SampleClassG instance = new SampleClassG();
-        builder.Register(instance);
-        builder.Register<SampleClassH>(InstanceType.Singleton);
+        builder.RegistrationAsConstant(instance);
+        builder.RegistrationAsSingleton<SampleClassH>();
 
         var resolver = builder.Build();
 

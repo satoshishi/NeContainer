@@ -11,8 +11,6 @@ namespace NeCo.Helper
             public bool entryPoint;
 
             public MonoBehaviour instance;
-
-            public string id;
         }
 
         [SerializeField]
@@ -22,7 +20,7 @@ namespace NeCo.Helper
         {
             foreach (var parameter in m_parameters)
             {
-                container.RegisterMonoBehaviour(parameter.instance, parameter.entryPoint, parameter.id);
+                container.RegistrationMonoBehaviour_AsConstant(parameter.instance, parameter.entryPoint);
             }
 
             return container;
