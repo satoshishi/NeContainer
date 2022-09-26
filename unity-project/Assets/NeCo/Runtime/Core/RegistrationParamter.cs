@@ -7,7 +7,7 @@ namespace NeCo
 {
     #region interface
 
-    public interface IRegistrationParamter
+    public interface IRegistrationParamter : IDisposable
     {
         /// <summary>
         /// 依存元
@@ -51,7 +51,7 @@ namespace NeCo
         }
     }
 
-    internal class Dependencys : Caches<(Type,string),Dependencys.Source>
+    internal class Dependencys : Caches<(Type,string),Dependencys.Source>, IDisposable
     {
         public class Source
         {
@@ -106,6 +106,11 @@ namespace NeCo
 
             value = null;
             return false;
+        }
+
+        public void Dispose()
+        {
+            this.caches = null;
         }
     }
 
@@ -187,6 +192,23 @@ namespace NeCo
         {
             this.from = new Dependencys(from,"");
         }
+
+        public void Dispose()
+        {
+            if(this.from != null)
+            {
+                this.from.Dispose();
+                this.from = null;
+            }
+
+            if(this.injecter != null)
+            {
+                this.injecter.Dispose();
+                this.injecter = null;
+            }            
+
+            this.instance = null;
+        }
     }
 
     internal sealed class FunctionInstanceParameter : IRegistrationParamter
@@ -263,6 +285,23 @@ namespace NeCo
         {
             this.from = new Dependencys(from,"");
         }
+
+        public void Dispose()
+        {
+            if(this.from != null)
+            {
+                this.from.Dispose();
+                this.from = null;
+            }
+
+            if(this.injecter != null)
+            {
+                this.injecter.Dispose();
+                this.injecter = null;
+            }            
+
+            this.instance = null;
+        }        
     }    
 
     internal sealed class PrefabInstanceParameter : IRegistrationParamter
@@ -351,6 +390,23 @@ namespace NeCo
             this.dontDestoryOnLoad = dontDestoryOnLoad;
             this.isThisEntryPoint = isThisEntryPoint;
         }        
+
+        public void Dispose()
+        {
+            if(this.from != null)
+            {
+                this.from.Dispose();
+                this.from = null;
+            }
+
+            if(this.injecter != null)
+            {
+                this.injecter.Dispose();
+                this.injecter = null;
+            }            
+
+            this.GameObject = null;
+        }        
     }
 
     internal sealed class MonoBehaviourInstanceParameter : IRegistrationParamter
@@ -422,6 +478,23 @@ namespace NeCo
             this.GameObject = gameObject;
             this.isThisEntryPoint = isThisEntryPoint;
         }
+
+        public void Dispose()
+        {
+            if(this.from != null)
+            {
+                this.from.Dispose();
+                this.from = null;
+            }
+
+            if(this.injecter != null)
+            {
+                this.injecter.Dispose();
+                this.injecter = null;
+            }            
+
+            this.GameObject = null;
+        }            
     }
 
     #endregion

@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace NeCo
 {
-    internal abstract class NeCoProvider
+    internal abstract class NeCoProvider : IDisposable
     {
         public abstract IRegistrationParamter Info
         {
@@ -41,10 +41,10 @@ namespace NeCo
 
         protected abstract object CreateInstance(ProviderCaches history, ProviderCaches caches);
 
-        public virtual void Dispose() { }
+        public abstract void Dispose();
     }
 
-    internal class ProviderCaches : Caches<Dependencys.Source, NeCoProvider>
+    internal class ProviderCaches : Caches<Dependencys.Source, NeCoProvider>, IDisposable
     {
         public override bool Match(Dependencys.Source key, out NeCoProvider value)
         {
@@ -59,6 +59,19 @@ namespace NeCo
 
             value = null;
             return false;
+        }
+
+        public void Dispose()
+        {
+            if(this.caches != null)
+            {
+                foreach(NeCoProvider provider in this.caches)
+                {
+                    provider.Dispose();
+                }
+
+                this.caches = null;
+            }
         }
 
         public bool Match(Type type, string id, out NeCoProvider value)
@@ -132,6 +145,17 @@ namespace NeCo
                 return Instance;
             return null;
         }
+
+        public override void Dispose()
+        {
+            if(this.info != null)
+            {
+                this.info.Dispose();
+                this.info = null;
+            }
+
+            this.Instance = null;
+        }
     }
 
     internal sealed class PrefabInstanceProvider : NeCoProvider
@@ -169,6 +193,23 @@ namespace NeCo
                 return Instance;
             return null;
         }
+
+        public override void Dispose()
+        {
+            if(this.info != null)
+            {
+                this.info.Dispose();
+                this.info = null;
+            }
+
+            if(this.Instance != null)
+            {
+                MonoBehaviour diposeTarget = this.Instance as MonoBehaviour;
+                GameObject.Destroy(diposeTarget.gameObject);
+
+                this.Instance = null;
+            }
+        }        
     }    
 
     internal sealed class SystemInstanceProvider : NeCoProvider
@@ -198,6 +239,17 @@ namespace NeCo
                 return Instance;
             return null;
         }
+
+        public override void Dispose()
+        {
+            if(this.info != null)
+            {
+                this.info.Dispose();
+                this.info = null;
+            }
+
+            this.Instance = null;            
+        }        
     }
 
     internal sealed class FunctionInstanceProvider : NeCoProvider
@@ -226,6 +278,17 @@ namespace NeCo
         {
             
         }
+
+        public override void Dispose()
+        {
+            if(this.info != null)
+            {
+                this.info.Dispose();
+                this.info = null;
+            }
+
+            this.Instance = null;            
+        }        
     }    
 
     internal sealed class ResolverInstanceProvider : NeCoProvider
@@ -253,5 +316,16 @@ namespace NeCo
         {
             return Instance;
         }
+
+        public override void Dispose()
+        {
+            if(this.info != null)
+            {
+                this.info.Dispose();
+                this.info = null;
+            }
+
+            this.Instance = null;            
+        }        
     }
 }

@@ -1,6 +1,8 @@
 namespace NeCo
 {
-    internal interface INeCoInjecter
+    using System;
+    
+    internal interface INeCoInjecter : IDisposable
     {
         Dependencys InjectionTarget 
         { 
