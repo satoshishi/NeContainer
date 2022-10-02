@@ -42,8 +42,8 @@ public class MethodInject
     public void メソッドインジェクション_Singleton()
     {
         var builder = NeCoUtilities.Create();
-        builder.Register<SampleClassB>(InstanceType.Singleton);
-        builder.Register<SampleClassA>(InstanceType.Singleton);
+        builder.RegistrationAsSingleton<SampleClassB>();
+        builder.RegistrationAsSingleton<SampleClassA>();
 
         var resolver = builder.Build();
         var a = resolver.Resolve<SampleClassA>();

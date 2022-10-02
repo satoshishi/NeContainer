@@ -1,5 +1,7 @@
 namespace NeCo
 {
+    using System;
+
     public enum InstanceType
     {
         Singleton,
@@ -7,8 +9,10 @@ namespace NeCo
         Constant
     }
 
-    public interface INeCoBuilder
+    public interface INeCoBuilder : IDisposable
     {
+        bool Vaild {get;}
+
         IRegistrationParamter Register(IRegistrationParamter info);        
         
         INeCoResolver Build();       

@@ -7,7 +7,7 @@ namespace NeCo.Recursion
     {
         private ProviderCaches caches = null;
 
-        public void SetCaches(ProviderCaches caches)
+        internal void SetCaches(ProviderCaches caches)
         {
             this.caches = caches;
 
@@ -19,10 +19,24 @@ namespace NeCo.Recursion
 
         public object Resolve(Type type, string id)
         {
+            if (this.caches == null)
+            {
+                return null;
+            }
+
             var cache = caches.Get(type, id);
             var implement = cache.Provide(new ProviderCaches(), caches);
 
             return implement;
+        }
+
+        public void Dispose()
+        {
+            if (this.caches != null)
+            {
+                this.caches.Dispose();
+                this.caches = null;
+            }
         }
     }
 }

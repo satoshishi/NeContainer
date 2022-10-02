@@ -39,7 +39,7 @@ namespace NeCo.Recursion
 
         internal abstract object CreateInstance(object instance, List<object> args, Dependencys parameter);
 
-        public virtual void Dispose() { }
+        public abstract void Dispose();
     }
 
     internal sealed class DoNotInjecter : RecursionInjecter
@@ -52,6 +52,15 @@ namespace NeCo.Recursion
         public DoNotInjecter()
         {
             injectionTarget = new Dependencys();
+        }
+
+        public override void Dispose()
+        {
+            if(this.injectionTarget != null)
+            {
+                this.injectionTarget.Dispose();
+                this.injectionTarget = null;
+            }
         }
     }
 
@@ -71,6 +80,15 @@ namespace NeCo.Recursion
             var source = new Dependencys.Source(typeof(INeCoResolver), "");
             injectionTarget.Add((source.Type, source.Id), source);            
         }
+
+        public override void Dispose()
+        {
+            if(this.injectionTarget != null)
+            {
+                this.injectionTarget.Dispose();
+                this.injectionTarget = null;
+            }
+        }        
     }
 
     internal sealed class ConstructInjecter : RecursionInjecter
@@ -96,6 +114,20 @@ namespace NeCo.Recursion
                 injectionTarget.Add((source.Type, source.Id), source);
             }
         }
+
+        public override void Dispose()
+        {
+            if(this.injectionTarget != null)
+            {
+                this.injectionTarget.Dispose();
+                this.injectionTarget = null;
+            }
+
+            if(this.constructor != null)
+            {
+                this.constructor = null;
+            }
+        }        
     }
 
     internal sealed class PropertyInjecter : RecursionInjecter
@@ -124,6 +156,20 @@ namespace NeCo.Recursion
                 injectionTarget.Add((source.Type, source.Id), source);
             }
         }
+
+        public override void Dispose()
+        {
+            if(this.injectionTarget != null)
+            {
+                this.injectionTarget.Dispose();
+                this.injectionTarget = null;
+            }
+
+            if(this.propertys != null)
+            {
+                this.propertys = null;
+            }
+        }        
     }
 
     internal sealed class MethodInjecter : RecursionInjecter
@@ -149,5 +195,19 @@ namespace NeCo.Recursion
                 injectionTarget.Add((source.Type, source.Id), source);
             }
         }
+
+        public override void Dispose()
+        {
+            if(this.injectionTarget != null)
+            {
+                this.injectionTarget.Dispose();
+                this.injectionTarget = null;
+            }
+
+            if(this.method != null)
+            {
+                this.method = null;
+            }
+        }               
     }
 }

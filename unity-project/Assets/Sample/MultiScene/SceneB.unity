@@ -157,8 +157,8 @@ MonoBehaviour:
   - entryPoint: 1
     instance: {fileID: 7811677481173007258, guid: 0ed6a77e46573424eae7c48ab88dc21f, type: 3}
     parent: {fileID: 1923404291}
-    id: 
     isTransient: 0
+    dontDestoryOnLoad: 1
 --- !u!4 &362312904
 Transform:
   m_ObjectHideFlags: 0
