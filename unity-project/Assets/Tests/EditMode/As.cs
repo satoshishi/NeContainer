@@ -29,7 +29,7 @@ public class As
     [Test]
     public void 複数の型をkeyにresolveできる()
     {
-        var builder = NeCoUtilities.Create();
+        var builder = _.Create();
         builder.RegistrationAsSingleton<ISampleA, ImplementAB>().Or<ISampleB>();
 
         var resolver = builder.Build();

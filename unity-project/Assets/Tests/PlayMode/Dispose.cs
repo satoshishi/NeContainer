@@ -12,7 +12,7 @@ public class Dispose
         GameObject monoBehaviour = new GameObject();
         monoBehaviour.name = "mono behaviour";
         var monoBehaviourComponents = monoBehaviour.AddComponent<PlayModeTestGameObject>();      
-        INeCoBuilder builder = NeCoUtilities.Create();
+        INeCoBuilder builder = _.Create();
         builder.RegistrationMonoBehaviour_AsConstant<IPlayModeInstance>(monoBehaviourComponents, true);
 
         GameObject prefab = new GameObject();

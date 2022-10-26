@@ -36,7 +36,7 @@ public class PropertyInject
     [Test]
     public void プロパティインジェクション_Singleton()
     {
-        var builder = NeCoUtilities.Create();
+        var builder = _.Create();
         builder.RegistrationAsSingleton<SampleClassB>();
         builder.RegistrationAsSingleton<SampleClassA>();
 
