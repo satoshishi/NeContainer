@@ -115,7 +115,7 @@ namespace NeCo
             if (Match(type, id, out NeCoProvider value))
                 return value;
 
-            throw new KeyNotFoundException($"{type.Name}");
+            throw new KeyNotFoundException($"{type.Name} is not found");
         }
     }
 

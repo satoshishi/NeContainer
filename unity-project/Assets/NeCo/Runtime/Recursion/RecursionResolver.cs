@@ -24,7 +24,7 @@ namespace NeCo.Recursion
                 return null;
             }
 
-            var cache = caches.Get(type, id);
+            NeCoProvider cache = caches.Get(type, id);
             var implement = cache.Provide(new ProviderCaches(), caches);
 
             return implement;
