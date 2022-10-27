@@ -120,7 +120,7 @@ public class ConstructInject
     [Test]
     public void コストラクタインジェクション_Singleton()
     {
-        var builder = NeCoUtilities.Create();
+        var builder = _.Create();
 
         builder.RegistrationAsSingleton<SampleClassA>();
         builder.RegistrationAsSingleton<SampleClassB>();
@@ -135,7 +135,7 @@ public class ConstructInject
     [Test]
     public void コストラクタインジェクション_循環参照あり_Singleton()
     {
-        var builder = NeCoUtilities.Create();
+        var builder = _.Create();
 
         builder.RegistrationAsSingleton<SampleClassC>();
         builder.RegistrationAsSingleton<SampleClassD>();
@@ -153,7 +153,7 @@ public class ConstructInject
     [Test]
     public void コストラクタインジェクション_Transient()
     {
-        var builder = NeCoUtilities.Create();
+        var builder = _.Create();
 
         builder.RegistrationAsTransient<SampleClassA>();
         builder.RegistrationAsTransient<SampleClassB>();
@@ -170,7 +170,7 @@ public class ConstructInject
     [Test]
     public void コストラクタインジェクション_循環参照あり_Transient()
     {
-        var builder1 = NeCoUtilities.Create();
+        var builder1 = _.Create();
 
         builder1.RegistrationAsSingleton<SampleClassC>();
         builder1.RegistrationAsTransient<SampleClassD>();
@@ -187,7 +187,7 @@ public class ConstructInject
 
 
 
-        var builder2 = NeCoUtilities.Create();
+        var builder2 = _.Create();
 
         builder2.RegistrationAsSingleton<SampleClassC>();
         builder2.RegistrationAsTransient<SampleClassD>();
@@ -205,7 +205,7 @@ public class ConstructInject
     [Test]
     public void コストラクタインジェクション_Constant()
     {
-        var builder = NeCoUtilities.Create();
+        var builder = _.Create();
 
         builder.RegistrationAsSingleton<SampleClassE>();
 
@@ -222,7 +222,7 @@ public class ConstructInject
     [Test]
     public void コストラクタインジェクション_循環参照あり_Constant()
     {
-        var builder = NeCoUtilities.Create();
+        var builder = _.Create();
 
         SampleClassG instance = new SampleClassG();
         builder.RegistrationAsConstant(instance);

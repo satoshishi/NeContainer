@@ -11,7 +11,7 @@ namespace NeCo.Helper
 
         public INeCoResolver RegistrationAndBuild()
         {
-            INeCoBuilder builder = NeCoUtilities.Create();
+            INeCoBuilder builder = _.Create();
             Registration(builder);
 
             return builder.Build();

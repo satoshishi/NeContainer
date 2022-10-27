@@ -13,7 +13,7 @@ namespace NeCo.Helper
 
         public virtual INeCoResolver RegistrationAndBuild()
         {
-            INeCoBuilder builder = NeCoUtilities.Create();
+            INeCoBuilder builder = _.Create();
             Registration(builder);
 
             return builder.Build();

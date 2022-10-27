@@ -41,7 +41,7 @@ public class MethodInject
     [Test]
     public void メソッドインジェクション_Singleton()
     {
-        var builder = NeCoUtilities.Create();
+        var builder = _.Create();
         builder.RegistrationAsSingleton<SampleClassB>();
         builder.RegistrationAsSingleton<SampleClassA>();
 

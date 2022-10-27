@@ -13,7 +13,7 @@ namespace NeCo.Helper
 
         public INeCoResolver RegistrationAndBuild()
         {
-            var container = NeCoUtilities.Create();
+            var container = _.Create();
 
             foreach (var helper in m_helpers)
             {

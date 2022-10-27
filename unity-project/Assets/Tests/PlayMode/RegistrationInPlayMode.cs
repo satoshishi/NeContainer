@@ -16,7 +16,7 @@ public class RegistrationInPlayMode
         GameObject target = new GameObject();
         var component = target.AddComponent<PlayModeTestGameObject>();
 
-        INeCoBuilder builder = NeCoUtilities.Create();
+        INeCoBuilder builder = _.Create();
         builder.RegistrationMonoBehaviour_AsConstant<IPlayModeInstance>(component);
 
         builder.RegistrationAsSingleton<RequestMonobehaviourClass>();
@@ -37,8 +37,8 @@ public class RegistrationInPlayMode
         GameObject target = new GameObject();
         var component = target.AddComponent<PlayModeTestGameObject>();
 
-        INeCoBuilder builder = NeCoUtilities.Create();
-        builder.RegistrationPrefab_AsSingleton<IPlayModeInstance>(component, null);
+        INeCoBuilder builder = _.Create();
+        builder.RegistrationPrefab_AsSingleton<IPlayModeInstance>(component);
 
         builder.RegistrationAsSingleton<RequestMonobehaviourClass>();        
 

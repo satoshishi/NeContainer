@@ -16,9 +16,18 @@ namespace NeCo.Recursion
         {
             //コンストラクタで依存している参照を取得しに行く
             List<object> args = new List<object>();
+            NeCoProvider cache = default;
             foreach (var aug in injectionTarget.Sources)
             {
-                var cache = caches.Get(aug);
+                try
+                {
+                    cache = caches.Get(aug);
+                }
+                catch
+                {
+                    throw new Exception($"failed {instance.GetType()} injection, {aug.Type} is not found");
+                }
+
                 object result = null;
 
                 //循環参照が発生している場合
@@ -56,7 +65,7 @@ namespace NeCo.Recursion
 
         public override void Dispose()
         {
-            if(this.injectionTarget != null)
+            if (this.injectionTarget != null)
             {
                 this.injectionTarget.Dispose();
                 this.injectionTarget = null;
@@ -72,23 +81,23 @@ namespace NeCo.Recursion
             Func<INeCoResolver, object> func = instance as Func<INeCoResolver, object>;
 
             return func.Invoke(resolver);
-        }        
+        }
         public FunctionInjecter()
         {
-            injectionTarget = new Dependencys();            
+            injectionTarget = new Dependencys();
 
             var source = new Dependencys.Source(typeof(INeCoResolver), "");
-            injectionTarget.Add((source.Type, source.Id), source);            
+            injectionTarget.Add((source.Type, source.Id), source);
         }
 
         public override void Dispose()
         {
-            if(this.injectionTarget != null)
+            if (this.injectionTarget != null)
             {
                 this.injectionTarget.Dispose();
                 this.injectionTarget = null;
             }
-        }        
+        }
     }
 
     internal sealed class ConstructInjecter : RecursionInjecter
@@ -117,17 +126,17 @@ namespace NeCo.Recursion
 
         public override void Dispose()
         {
-            if(this.injectionTarget != null)
+            if (this.injectionTarget != null)
             {
                 this.injectionTarget.Dispose();
                 this.injectionTarget = null;
             }
 
-            if(this.constructor != null)
+            if (this.constructor != null)
             {
                 this.constructor = null;
             }
-        }        
+        }
     }
 
     internal sealed class PropertyInjecter : RecursionInjecter
@@ -159,17 +168,17 @@ namespace NeCo.Recursion
 
         public override void Dispose()
         {
-            if(this.injectionTarget != null)
+            if (this.injectionTarget != null)
             {
                 this.injectionTarget.Dispose();
                 this.injectionTarget = null;
             }
 
-            if(this.propertys != null)
+            if (this.propertys != null)
             {
                 this.propertys = null;
             }
-        }        
+        }
     }
 
     internal sealed class MethodInjecter : RecursionInjecter
@@ -198,16 +207,16 @@ namespace NeCo.Recursion
 
         public override void Dispose()
         {
-            if(this.injectionTarget != null)
+            if (this.injectionTarget != null)
             {
                 this.injectionTarget.Dispose();
                 this.injectionTarget = null;
             }
 
-            if(this.method != null)
+            if (this.method != null)
             {
                 this.method = null;
             }
-        }               
+        }
     }
 }

@@ -20,7 +20,7 @@ namespace NeCo
             return (TO)(to);
         }
 
-        public static TO Instantiate<TO>(this INeCoResolver resolver, object prefab, Transform root) where TO : class
+        public static TO Instantiate<TO>(this INeCoResolver resolver, MonoBehaviour prefab, Transform root) where TO : class
         {
             object InjectionMethod(MethodInfo method, object instance)
             {
@@ -50,10 +50,7 @@ namespace NeCo
             }            
 
             Type target = prefab.GetType();
-            if (!target.IsMonoBehaviourSubClass())
-                throw new NotSupportedException("MonoBehaviourを継承していないクラスを指定しました : " + prefab.GetType());
-
-            object instance = GameObject.Instantiate(prefab as MonoBehaviour, root);                
+            object instance = GameObject.Instantiate(prefab, root);                
 
             if (target.HasInjectionAttributeInMethod(out MethodInfo method))
                 return InjectionMethod(method, instance) as TO;
