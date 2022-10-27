@@ -10,6 +10,8 @@ namespace NeCo.Helper
         {
             public bool entryPoint;
 
+            public string id;
+
             public MonoBehaviour instance;
         }
 
@@ -20,7 +22,7 @@ namespace NeCo.Helper
         {
             foreach (var parameter in m_parameters)
             {
-                container.RegistrationMonoBehaviour_AsConstant(parameter.instance, parameter.entryPoint);
+                container.RegistrationMonoBehaviour_AsConstant(parameter.instance, parameter.entryPoint, parameter.id);
             }
 
             return container;
