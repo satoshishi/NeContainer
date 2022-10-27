@@ -11,14 +11,14 @@ public class Dispose
     {
         GameObject monoBehaviour = new GameObject();
         monoBehaviour.name = "mono behaviour";
-        var monoBehaviourComponents = monoBehaviour.AddComponent<PlayModeTestGameObject>();      
+        var monoBehaviourComponents = monoBehaviour.AddComponent<PlayModeTestGameObject>();
         INeCoBuilder builder = _.Create();
         builder.RegistrationMonoBehaviour_AsConstant<IPlayModeInstance>(monoBehaviourComponents, true);
 
         GameObject prefab = new GameObject();
         prefab.name = "prefab";
-        var prefabComponents = prefab.AddComponent<PlayModeTestGameObject>();      
-        builder.RegistrationPrefab_AsSingleton<PlayModeTestGameObject>(prefabComponents, null, true);        
+        var prefabComponents = prefab.AddComponent<PlayModeTestGameObject>();
+        builder.RegistrationPrefab_AsSingleton<PlayModeTestGameObject>(prefabComponents, new PrefabRegistrationOptions() { IsThisEntryPoint = true });
 
         builder.RegistrationAsSingleton<RequestMonobehaviourClass>();
 
@@ -29,7 +29,7 @@ public class Dispose
         resolver.Dispose();
         builder.Dispose();
 
-        Debug.Log("disposed");        
+        Debug.Log("disposed");
 
         yield return new WaitForSeconds(5f);
 

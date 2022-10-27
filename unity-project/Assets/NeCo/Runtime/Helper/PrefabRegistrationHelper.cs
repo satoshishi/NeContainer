@@ -8,15 +8,12 @@ namespace NeCo.Helper
         [System.Serializable]
         public class RegistrationParameter
         {
-            public bool entryPoint;
-
             public MonoBehaviour instance;
-
-            public Transform parent;
 
             public bool isTransient;
 
-            public bool dontDestoryOnLoad;
+            public PrefabRegistrationOptions options;
+
         }
 
         [SerializeField]
@@ -28,11 +25,11 @@ namespace NeCo.Helper
             {
                 if (parameter.isTransient)
                 {
-                    container.RegistrationPrefab_AsTransient(parameter.instance, parameter.parent, parameter.entryPoint, parameter.dontDestoryOnLoad);
+                    container.RegistrationPrefab_AsTransient(parameter.instance, parameter.options);
                 }
                 else
                 {
-                    container.RegistrationPrefab_AsSingleton(parameter.instance, parameter.parent, parameter.entryPoint, parameter.dontDestoryOnLoad);
+                    container.RegistrationPrefab_AsSingleton(parameter.instance, parameter.options);
                 }
             }
 
