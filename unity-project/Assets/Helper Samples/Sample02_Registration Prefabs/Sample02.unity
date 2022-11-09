@@ -244,6 +244,7 @@ MonoBehaviour:
       Parent: {fileID: 2096348765}
       DontDestoryOnLoad: 0
       IsThisEntryPoint: 0
+      ComponentTypeName: 
       Id: A
   - instance: {fileID: 7914332467231292743, guid: f147cfe90eca148ebb1618e03a89b154, type: 3}
     isTransient: 0
@@ -251,6 +252,7 @@ MonoBehaviour:
       Parent: {fileID: 0}
       DontDestoryOnLoad: 1
       IsThisEntryPoint: 0
+      ComponentTypeName: Sample02Components
       Id: B
 --- !u!114 &928574755
 MonoBehaviour:
