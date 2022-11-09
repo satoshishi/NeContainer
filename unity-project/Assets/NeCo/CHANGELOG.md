@@ -1,6 +1,6 @@
 # ChangeLog
 
-## [1.2.2.1] - 2022-11-09
+## [1.2.3] - 2022-11-09
 ### RegistrationOptionsからstringで登録キーとなるTypeを指定できるように
 - 上記の通り
 
