@@ -1,5 +1,9 @@
 # ChangeLog
 
+## [1.2.2.1] - 2022-11-09
+### RegistrationOptionsからstringで登録キーとなるTypeを指定できるように
+- 上記の通り
+
 ## [1.2.2] - 2022-11-09
 ### Singletonで指定されたPrefaｂからのインスタンスをDestoryしたら、以降のResolveで再度Instantiateするように
 - 上記の通り

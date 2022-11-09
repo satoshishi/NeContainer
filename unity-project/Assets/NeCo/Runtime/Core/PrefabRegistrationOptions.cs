@@ -11,6 +11,8 @@ namespace NeCo
 
         public bool IsThisEntryPoint = false;
 
+        public string ComponentTypeName;
+
         public string Id = string.Empty;
     }
 }
