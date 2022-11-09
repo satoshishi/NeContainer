@@ -141,7 +141,7 @@ namespace NeCo
 
         protected override object GetInstance()
         {
-            if (Instance != null && (info.IsSingleton() || info.IsConstant()))
+            if ((UnityEngine.Object)Instance != null && (info.IsSingleton() || info.IsConstant()))
                 return Instance;
             return null;
         }
@@ -170,7 +170,7 @@ namespace NeCo
 
         protected override object CreateInstance(ProviderCaches history, ProviderCaches caches)
         {
-            if(info.IsConstant() && Instance != null)
+            if(info.IsConstant() && (UnityEngine.Object)Instance != null)
                 return Instance;
 
             var newInstance = GameObject.Instantiate(info.GameObject,info.Parent);
@@ -189,7 +189,7 @@ namespace NeCo
 
         protected override object GetInstance()
         {
-            if (Instance != null && (info.IsSingleton() || info.IsConstant()))
+            if ((UnityEngine.Object)Instance != null && (info.IsSingleton() || info.IsConstant()))
                 return Instance;
             return null;
         }
@@ -202,7 +202,7 @@ namespace NeCo
                 this.info = null;
             }
 
-            if(this.Instance != null)
+            if((UnityEngine.Object)Instance != null)
             {
                 MonoBehaviour diposeTarget = this.Instance as MonoBehaviour;
                 GameObject.Destroy(diposeTarget.gameObject);
