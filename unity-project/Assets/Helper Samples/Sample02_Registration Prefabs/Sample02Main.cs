@@ -10,7 +10,11 @@ public class Sample02Main : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        INeCoResolver resolver = this.helper.RegistrationAndBuild();
+        INeCoBuilder builder = _.Create();
+        this.helper.Registration(builder);
+        builder.RegistrationAsConstant("hello");
+        
+        INeCoResolver resolver = builder.Build();
 
         resolver.Resolve<Sample02Components>("A").Say();
         resolver.Resolve<Sample02Components>("A").Say();

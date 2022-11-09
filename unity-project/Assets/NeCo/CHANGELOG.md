@@ -1,5 +1,9 @@
 # ChangeLog
 
+## [1.2.4] - 2022-11-09
+### StringからキーとなるTypeを指定した際に、injectionが正常に実行されない問題を修正
+- 上記の通り
+
 ## [1.2.3] - 2022-11-09
 ### RegistrationOptionsからstringで登録キーとなるTypeを指定できるように
 - 上記の通り

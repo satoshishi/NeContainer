@@ -36,16 +36,19 @@ namespace NeCo
         public static IRegistrationParamter RegistrationPrefab_AsSingleton(this INeCoBuilder builder, MonoBehaviour prefab, PrefabRegistrationOptions options)
         {
             Type type;
+            object instance;
+
             if (string.IsNullOrEmpty(options.ComponentTypeName))
             {
                 type = prefab.GetType();
+                instance = prefab;
             }
             else
             {
-                type = prefab.gameObject.GetComponent(options.ComponentTypeName).GetType();
+                Component component = prefab.gameObject.GetComponent(options.ComponentTypeName);
+                type = component.GetType();
+                instance = component;
             }
-
-            object instance = prefab;
 
             IRegistrationParamter parameter = RegistrationPrefab(builder, type, type, InstanceType.Constant, instance, options.Parent, options.DontDestoryOnLoad, options.IsThisEntryPoint, options.Id);
             return parameter;
@@ -83,16 +86,19 @@ namespace NeCo
         public static IRegistrationParamter RegistrationPrefab_AsTransient(this INeCoBuilder builder, MonoBehaviour prefab, PrefabRegistrationOptions options)
         {
             Type type;
+            object instance;
+            
             if (string.IsNullOrEmpty(options.ComponentTypeName))
             {
                 type = prefab.GetType();
+                instance = prefab;
             }
             else
             {
-                type = prefab.gameObject.GetComponent(options.ComponentTypeName).GetType();
+                Component component = prefab.gameObject.GetComponent(options.ComponentTypeName);
+                type = component.GetType();
+                instance = component;
             }
-
-            object instance = prefab;
 
             IRegistrationParamter parameter = RegistrationPrefab(builder, type, type, InstanceType.Transient, instance, options.Parent, options.DontDestoryOnLoad, options.IsThisEntryPoint, options.Id);
             return parameter;
@@ -131,16 +137,19 @@ namespace NeCo
         public static IRegistrationParamter RegistrationPrefab_AsSingleton<FROM>(this INeCoBuilder builder, MonoBehaviour prefab, PrefabRegistrationOptions options)
         {
             Type type;
+            object instance;
+            
             if (string.IsNullOrEmpty(options.ComponentTypeName))
             {
                 type = prefab.GetType();
+                instance = prefab;
             }
             else
             {
-                type = prefab.gameObject.GetComponent(options.ComponentTypeName).GetType();
+                Component component = prefab.gameObject.GetComponent(options.ComponentTypeName);
+                type = component.GetType();
+                instance = component;
             }
-
-            object instance = prefab;
 
             IRegistrationParamter parameter = RegistrationPrefab(builder, typeof(FROM), type, InstanceType.Constant, instance, options.Parent, options.DontDestoryOnLoad, options.IsThisEntryPoint, options.Id);
             return parameter;
@@ -179,16 +188,19 @@ namespace NeCo
         public static IRegistrationParamter RegistrationPrefab_AsTransient<FROM>(this INeCoBuilder builder, MonoBehaviour prefab, PrefabRegistrationOptions options)
         {
             Type type;
+            object instance;
+            
             if (string.IsNullOrEmpty(options.ComponentTypeName))
             {
                 type = prefab.GetType();
+                instance = prefab;
             }
             else
             {
-                type = prefab.gameObject.GetComponent(options.ComponentTypeName).GetType();
+                Component component = prefab.gameObject.GetComponent(options.ComponentTypeName);
+                type = component.GetType();
+                instance = component;
             }
-
-            object instance = prefab;
 
             IRegistrationParamter parameter = RegistrationPrefab(builder, typeof(FROM), type, InstanceType.Transient, instance, options.Parent, options.DontDestoryOnLoad, options.IsThisEntryPoint, options.Id);
             return parameter;
