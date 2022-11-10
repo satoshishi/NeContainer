@@ -35,22 +35,9 @@ namespace NeCo
         /// <returns></returns>        
         public static IRegistrationParamter RegistrationPrefab_AsSingleton(this INeCoBuilder builder, MonoBehaviour prefab, PrefabRegistrationOptions options)
         {
-            Type type;
-            object instance;
+            (Type, object) keyValue = GetRegistrationTypeAndObject(options.ComponentTypeName, prefab);
 
-            if (string.IsNullOrEmpty(options.ComponentTypeName))
-            {
-                type = prefab.GetType();
-                instance = prefab;
-            }
-            else
-            {
-                Component component = prefab.gameObject.GetComponent(options.ComponentTypeName);
-                type = component.GetType();
-                instance = component;
-            }
-
-            IRegistrationParamter parameter = RegistrationPrefab(builder, type, type, InstanceType.Constant, instance, options.Parent, options.DontDestoryOnLoad, options.IsThisEntryPoint, options.Id);
+            IRegistrationParamter parameter = RegistrationPrefab(builder, keyValue.Item1, keyValue.Item1, InstanceType.Constant, keyValue.Item2, options.Parent, options.DontDestoryOnLoad, options.IsThisEntryPoint, options.Id);
             return parameter;
         }
 
@@ -85,22 +72,9 @@ namespace NeCo
         /// <returns></returns>        
         public static IRegistrationParamter RegistrationPrefab_AsTransient(this INeCoBuilder builder, MonoBehaviour prefab, PrefabRegistrationOptions options)
         {
-            Type type;
-            object instance;
-            
-            if (string.IsNullOrEmpty(options.ComponentTypeName))
-            {
-                type = prefab.GetType();
-                instance = prefab;
-            }
-            else
-            {
-                Component component = prefab.gameObject.GetComponent(options.ComponentTypeName);
-                type = component.GetType();
-                instance = component;
-            }
+            (Type, object) keyValue = GetRegistrationTypeAndObject(options.ComponentTypeName, prefab);
 
-            IRegistrationParamter parameter = RegistrationPrefab(builder, type, type, InstanceType.Transient, instance, options.Parent, options.DontDestoryOnLoad, options.IsThisEntryPoint, options.Id);
+            IRegistrationParamter parameter = RegistrationPrefab(builder, keyValue.Item1, keyValue.Item1, InstanceType.Transient, keyValue.Item2, options.Parent, options.DontDestoryOnLoad, options.IsThisEntryPoint, options.Id);
             return parameter;
         }
 
@@ -136,22 +110,9 @@ namespace NeCo
         /// <returns></returns>        
         public static IRegistrationParamter RegistrationPrefab_AsSingleton<FROM>(this INeCoBuilder builder, MonoBehaviour prefab, PrefabRegistrationOptions options)
         {
-            Type type;
-            object instance;
-            
-            if (string.IsNullOrEmpty(options.ComponentTypeName))
-            {
-                type = prefab.GetType();
-                instance = prefab;
-            }
-            else
-            {
-                Component component = prefab.gameObject.GetComponent(options.ComponentTypeName);
-                type = component.GetType();
-                instance = component;
-            }
+            (Type, object) keyValue = GetRegistrationTypeAndObject(options.ComponentTypeName, prefab);
 
-            IRegistrationParamter parameter = RegistrationPrefab(builder, typeof(FROM), type, InstanceType.Constant, instance, options.Parent, options.DontDestoryOnLoad, options.IsThisEntryPoint, options.Id);
+            IRegistrationParamter parameter = RegistrationPrefab(builder, typeof(FROM), keyValue.Item1, InstanceType.Constant, keyValue.Item2, options.Parent, options.DontDestoryOnLoad, options.IsThisEntryPoint, options.Id);
             return parameter;
         }
 
@@ -187,22 +148,9 @@ namespace NeCo
         /// <returns></returns>        
         public static IRegistrationParamter RegistrationPrefab_AsTransient<FROM>(this INeCoBuilder builder, MonoBehaviour prefab, PrefabRegistrationOptions options)
         {
-            Type type;
-            object instance;
-            
-            if (string.IsNullOrEmpty(options.ComponentTypeName))
-            {
-                type = prefab.GetType();
-                instance = prefab;
-            }
-            else
-            {
-                Component component = prefab.gameObject.GetComponent(options.ComponentTypeName);
-                type = component.GetType();
-                instance = component;
-            }
+            (Type, object) keyValue = GetRegistrationTypeAndObject(options.ComponentTypeName, prefab);
 
-            IRegistrationParamter parameter = RegistrationPrefab(builder, typeof(FROM), type, InstanceType.Transient, instance, options.Parent, options.DontDestoryOnLoad, options.IsThisEntryPoint, options.Id);
+            IRegistrationParamter parameter = RegistrationPrefab(builder, typeof(FROM), keyValue.Item1, InstanceType.Transient, keyValue.Item2, options.Parent, options.DontDestoryOnLoad, options.IsThisEntryPoint, options.Id);
             return parameter;
         }
 

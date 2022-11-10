@@ -26,6 +26,26 @@ namespace NeCo
             return new DoNotInjecter();
         }
 
-        #endregion        
+        #endregion
+
+        private static (Type, object) GetRegistrationTypeAndObject(string componentTypeName, MonoBehaviour instance)
+        {
+            Type type;
+            object target;
+
+            if (string.IsNullOrEmpty(componentTypeName))
+            {
+                type = instance.GetType();
+                target = instance;
+            }
+            else
+            {
+                Component component = instance.gameObject.GetComponent(componentTypeName);
+                type = component.GetType();
+                target = component;
+            }
+
+            return (type, target);
+        }
     }
 }

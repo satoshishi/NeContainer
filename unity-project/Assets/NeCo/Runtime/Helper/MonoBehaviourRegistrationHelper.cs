@@ -8,9 +8,7 @@ namespace NeCo.Helper
         [System.Serializable]
         public class RegistrationParameter
         {
-            public bool entryPoint;
-
-            public string id;
+            public MonoBehaviourRegistrationOptions options;
 
             public MonoBehaviour instance;
         }
@@ -22,7 +20,7 @@ namespace NeCo.Helper
         {
             foreach (var parameter in m_parameters)
             {
-                container.RegistrationMonoBehaviour_AsConstant(parameter.instance, parameter.entryPoint, parameter.id);
+                container.RegistrationMonoBehaviour_AsSingleton(parameter.instance, parameter.options);
             }
 
             return container;

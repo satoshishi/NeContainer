@@ -15,14 +15,13 @@ namespace NeCo
         /// </summary>
         /// <param name="builder">コンテナを生成するビルダー</param>
         /// <param name="gameObject">クラス</param>
-        /// <param name="isThisEntryPoint">このクラスのインスタンスをBuild後に生成するか</param>
+        /// <param name="options">登録する際のoptions</param>
         /// <returns></returns>        
-        public static IRegistrationParamter RegistrationMonoBehaviour_AsConstant(this INeCoBuilder builder, MonoBehaviour gameObject, bool isThisEntryPoint)
+        public static IRegistrationParamter RegistrationMonoBehaviour_AsSingleton(this INeCoBuilder builder, MonoBehaviour gameObject, MonoBehaviourRegistrationOptions options)
         {
-            Type type = gameObject.GetType();
-            object instance = gameObject;
+            (Type, object) keyValue = GetRegistrationTypeAndObject(options.ComponentTypeName, gameObject);
 
-            IRegistrationParamter parameter = RegistrationMonoBehaviour(builder, type, type, InstanceType.Constant, instance, isThisEntryPoint, string.Empty);
+            IRegistrationParamter parameter = RegistrationMonoBehaviour(builder, keyValue.Item1, keyValue.Item1, InstanceType.Constant, keyValue.Item2, options.IsThisEntryPoint, options.Id);
             return parameter;
         }
 
@@ -31,48 +30,15 @@ namespace NeCo
         /// </summary>
         /// <param name="builder">コンテナを生成するビルダー</param>
         /// <param name="gameObject">クラス</param>
-        /// <param name="id">id</param>
         /// <returns></returns>        
-        public static IRegistrationParamter RegistrationMonoBehaviour_AsConstant(this INeCoBuilder builder, MonoBehaviour gameObject, string id)
-        {
-            Type type = gameObject.GetType();
-            object instance = gameObject;
-
-            IRegistrationParamter parameter = RegistrationMonoBehaviour(builder, type, type, InstanceType.Constant, instance, false, id);
-            return parameter;
-        }
-
-        /// <summary>
-        /// 既に生成したMonoBehaivourを継承したクラスをコンテナに登録する
-        /// </summary>
-        /// <param name="builder">コンテナを生成するビルダー</param>
-        /// <param name="gameObject">クラス</param>
-        /// <param name="isThisEntryPoint">このクラスのインスタンスをBuild後に生成するか</param>
-        /// <param name="id">id</param>
-        /// <returns></returns>        
-        public static IRegistrationParamter RegistrationMonoBehaviour_AsConstant(this INeCoBuilder builder, MonoBehaviour gameObject, bool isThisEntryPoint, string id)
-        {
-            Type type = gameObject.GetType();
-            object instance = gameObject;
-
-            IRegistrationParamter parameter = RegistrationMonoBehaviour(builder, type, type, InstanceType.Constant, instance, isThisEntryPoint, id);
-            return parameter;
-        }        
-
-        /// <summary>
-        /// 既に生成したMonoBehaivourを継承したクラスをコンテナに登録する
-        /// </summary>
-        /// <param name="builder">コンテナを生成するビルダー</param>
-        /// <param name="gameObject">クラス</param>
-        /// <returns></returns>        
-        public static IRegistrationParamter RegistrationMonoBehaviour_AsConstant(this INeCoBuilder builder, MonoBehaviour gameObject)
+        public static IRegistrationParamter RegistrationMonoBehaviour_AsSingleton(this INeCoBuilder builder, MonoBehaviour gameObject)
         {
             Type type = gameObject.GetType();
             object instance = gameObject;
 
             IRegistrationParamter parameter = RegistrationMonoBehaviour(builder, type, type, InstanceType.Constant, instance, false, string.Empty);
             return parameter;
-        }        
+        }
 
         #endregion
 
@@ -86,12 +52,11 @@ namespace NeCo
         /// <param name="isThisEntryPoint">このクラスのインスタンスをBuild後に生成するか</param>
         /// <typeparam name="FROM">Resolverから受けとつける型</typeparam>
         /// <returns></returns>
-        public static IRegistrationParamter RegistrationMonoBehaviour_AsConstant<FROM>(this INeCoBuilder builder, MonoBehaviour gameObject, bool isThisEntryPoint)
+        public static IRegistrationParamter RegistrationMonoBehaviour_AsSingleton<FROM>(this INeCoBuilder builder, MonoBehaviour gameObject, MonoBehaviourRegistrationOptions options)
         {
-            Type type = gameObject.GetType();
-            object instance = gameObject;
+            (Type, object) keyValue = GetRegistrationTypeAndObject(options.ComponentTypeName, gameObject);
 
-            IRegistrationParamter parameter = RegistrationMonoBehaviour(builder, typeof(FROM), type, InstanceType.Constant, instance, isThisEntryPoint, string.Empty);
+            IRegistrationParamter parameter = RegistrationMonoBehaviour(builder, typeof(FROM), keyValue.Item1, InstanceType.Constant, keyValue.Item2, options.IsThisEntryPoint, options.Id);
             return parameter;
         }
 
@@ -100,51 +65,16 @@ namespace NeCo
         /// </summary>
         /// <param name="builder">コンテナを生成するビルダー</param>
         /// <param name="gameObject">クラス</param>
-        /// <param name="id">id</param>
         /// <typeparam name="FROM">Resolverから受けとつける型</typeparam>
         /// <returns></returns>
-        public static IRegistrationParamter RegistrationMonoBehaviour_AsConstant<FROM>(this INeCoBuilder builder, MonoBehaviour gameObject, string id)
-        {
-            Type type = gameObject.GetType();
-            object instance = gameObject;
-
-            IRegistrationParamter parameter = RegistrationMonoBehaviour(builder, typeof(FROM), type, InstanceType.Constant, instance, false, id);
-            return parameter;
-        }
-
-        /// <summary>
-        /// 既に生成したMonoBehaivourを継承したクラスをコンテナに登録する
-        /// </summary>
-        /// <param name="builder">コンテナを生成するビルダー</param>
-        /// <param name="gameObject">クラス</param>
-        /// <param name="isThisEntryPoint">このクラスのインスタンスをBuild後に生成するか</param>
-        /// <param name="id">id</param>
-        /// <typeparam name="FROM">Resolverから受けとつける型</typeparam>
-        /// <returns></returns>
-        public static IRegistrationParamter RegistrationMonoBehaviour_AsConstant<FROM>(this INeCoBuilder builder, MonoBehaviour gameObject, bool isThisEntryPoint, string id)
-        {
-            Type type = gameObject.GetType();
-            object instance = gameObject;
-
-            IRegistrationParamter parameter = RegistrationMonoBehaviour(builder, typeof(FROM), type, InstanceType.Constant, instance, isThisEntryPoint, id);
-            return parameter;
-        }                
-
-        /// <summary>
-        /// 既に生成したMonoBehaivourを継承したクラスをコンテナに登録する
-        /// </summary>
-        /// <param name="builder">コンテナを生成するビルダー</param>
-        /// <param name="gameObject">クラス</param>
-        /// <typeparam name="FROM">Resolverから受けとつける型</typeparam>
-        /// <returns></returns>
-        public static IRegistrationParamter RegistrationMonoBehaviour_AsConstant<FROM>(this INeCoBuilder builder, MonoBehaviour gameObject)
+        public static IRegistrationParamter RegistrationMonoBehaviour_AsSingleton<FROM>(this INeCoBuilder builder, MonoBehaviour gameObject)
         {
             Type type = gameObject.GetType();
             object instance = gameObject;
 
             IRegistrationParamter parameter = RegistrationMonoBehaviour(builder, typeof(FROM), type, InstanceType.Constant, instance, false, string.Empty);
             return parameter;
-        }                        
+        }
 
         #endregion
 
