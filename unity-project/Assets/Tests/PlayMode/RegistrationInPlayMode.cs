@@ -17,7 +17,7 @@ public class RegistrationInPlayMode
         var component = target.AddComponent<PlayModeTestGameObject>();
 
         INeCoBuilder builder = _.Create();
-        builder.RegistrationMonoBehaviour_AsConstant<IPlayModeInstance>(component);
+        builder.RegistrationMonoBehaviour_AsSingleton<IPlayModeInstance>(component);
 
         builder.RegistrationAsSingleton<RequestMonobehaviourClass>();
 
