@@ -1,8 +1,8 @@
 # ChangeLog
 
-## [1.2.4] - 2022-11-09
+## [1.2.4] - 2022-11-10
 ### StringからキーとなるTypeを指定した際に、injectionが正常に実行されない問題を修正
-- 上記の通り
+- MonoBehaviourRegistrationに関しても同様の方法で登録できるように
 
 ## [1.2.3] - 2022-11-09
 ### RegistrationOptionsからstringで登録キーとなるTypeを指定できるように
