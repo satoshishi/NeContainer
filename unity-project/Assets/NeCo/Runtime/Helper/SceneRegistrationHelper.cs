@@ -25,8 +25,8 @@ namespace NeCo.Helper
             {
                 container = helper.Registration(container);
 
-                if (helper.IsDestoryOnBuild)
-                    Destroy(helper.gameObject);
+                if (helper.DestoryOnBuild)
+                    Destroy(helper);
             }
             if (IsDestoryOnBuild)
                 Destroy(this.gameObject, 1f);

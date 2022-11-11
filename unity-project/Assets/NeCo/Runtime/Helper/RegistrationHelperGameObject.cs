@@ -8,8 +8,8 @@ namespace NeCo.Helper
     public abstract class RegistrationHelperGameObject : MonoBehaviour, IRegistrationHelper
     {
         [SerializeField]
-        private bool m_isDestoryOnBuild = false;
-        public bool IsDestoryOnBuild => m_isDestoryOnBuild;
+        private bool destoryOnBuild = false;
+        public bool DestoryOnBuild => destoryOnBuild;
 
         public virtual INeCoResolver RegistrationAndBuild()
         {
