@@ -11,19 +11,45 @@ namespace NeCo
 
         private static INeCoInjecter CreateInjecter(Type target)
         {
+            INeCoInjecter newInjecter = null;            
+
+            //キャッシュがあったら、そっちを使う
+            if(InjecterContainer.TryGet(target, out INeCoInjecter existsInjecter))
+            {
+                return existsInjecter;
+            }
+
             if (target.HasInjectionAttributeInConstructor(out ConstructorInfo constructor))
-                return new ConstructInjecter(constructor);
+            {
+                newInjecter = new ConstructInjecter(constructor);
+                InjecterContainer.Add(target, newInjecter);
+
+                return newInjecter;
+            }
 
             //if (target.HasConstructor(out constructor))
             //return new ConstructInjecter(constructor);                
 
             if (target.HasInjectionAttributeInMethod(out MethodInfo method))
-                return new MethodInjecter(method);
+            {
+                newInjecter = new MethodInjecter(method);
+                InjecterContainer.Add(target, newInjecter);
+                
+                return newInjecter;                
+            }
 
             if (target.HasInjectionAttributeInProperty(out (PropertyInfo, string)[] propertys))
-                return new PropertyInjecter(propertys);
+            {
+                newInjecter = new PropertyInjecter(propertys);
+                InjecterContainer.Add(target, newInjecter);      
 
-            return new DoNotInjecter();
+                return newInjecter;
+            }
+
+            newInjecter = new DoNotInjecter();
+            InjecterContainer.Add(target, newInjecter);      
+
+            return newInjecter;
         }
 
         #endregion
