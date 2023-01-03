@@ -9,9 +9,9 @@ namespace NeCo
     {
         #region factory
 
-        private static INeCoInjecter CreateInjecter(Type target, bool IsMonoBehaviourClass)
+        private static INeCoInjecter CreateInjecter(Type target, InjectionType type)
         {
-            INeCoInjecter newInjecter = null;            
+            INeCoInjecter newInjecter = default;        
 
             //キャッシュがあったら、そっちを使う
             if(InjecterContainer.TryGet(target, out INeCoInjecter existsInjecter))
@@ -19,16 +19,40 @@ namespace NeCo
                 return existsInjecter;
             }
 
-            if(!IsMonoBehaviourClass)
+            newInjecter = type switch
             {
-                if (target.HasInjectionAttributeInConstructor(out ConstructorInfo constructor))
-                {
-                    newInjecter = new ConstructInjecter(constructor);
-                    InjecterContainer.Add(target, newInjecter);
+                InjectionType.Constructor => CreateConstructorInjecter(target),
+                InjectionType.Method => CreateMethodInjecter(target),
+                InjectionType.Property => CreatePropertyInjecter(target),
+                InjectionType.Self => CreateInjecterSelf(target),
+                _ => CreateInjecterSelf(target),
+            };            
 
-                    return newInjecter;
-                }
-            }              
+            // 生成できなかった場合は、selfで無理やり作ろうとする
+            if(newInjecter == null)
+                return CreateInjecterSelf(target);
+
+            return newInjecter;
+        }
+
+        private static INeCoInjecter CreateConstructorInjecter(Type target)
+        {
+            INeCoInjecter newInjecter = null;               
+
+            if (target.HasInjectionAttributeInConstructor(out ConstructorInfo constructor))
+            {
+                newInjecter = new ConstructInjecter(constructor);
+                InjecterContainer.Add(target, newInjecter);
+
+                return newInjecter;
+            }        
+
+            return null;
+        }
+
+        private static INeCoInjecter CreateMethodInjecter(Type target)
+        {
+            INeCoInjecter newInjecter = null;               
 
             if (target.HasInjectionAttributeInMethod(out MethodInfo method))
             {
@@ -38,6 +62,13 @@ namespace NeCo
                 return newInjecter;                
             }
 
+            return null;
+        }   
+
+        private static INeCoInjecter CreatePropertyInjecter(Type target)
+        {
+            INeCoInjecter newInjecter = null;               
+
             if (target.HasInjectionAttributeInProperty(out (PropertyInfo, string)[] propertys))
             {
                 newInjecter = new PropertyInjecter(propertys);
@@ -46,11 +77,34 @@ namespace NeCo
                 return newInjecter;
             }
 
+            return null;
+        }                
+
+        private static INeCoInjecter CreateInjecterSelf(Type target)
+        {
+            INeCoInjecter newInjecter = null;               
+
+            // コンストラクタから作ろうとする
+            newInjecter = CreateConstructorInjecter(target);
+            if(newInjecter != null)
+                return newInjecter;
+
+            // メソッドから作ろうとする
+            newInjecter = CreateMethodInjecter(target);
+            if(newInjecter != null)
+                return newInjecter;                
+
+            // プロパティから作ろうとする
+            newInjecter = CreatePropertyInjecter(target);
+            if(newInjecter != null)
+                return newInjecter;                                
+
+            // どれも作れなかったらinjection不要と判断
             newInjecter = new DoNotInjecter();
             InjecterContainer.Add(target, newInjecter);      
 
             return newInjecter;
-        }
+        } 
 
         #endregion
 

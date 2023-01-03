@@ -1,7 +1,4 @@
 using System;
-using System.Reflection;
-using UnityEngine;
-using NeCo.Recursion;
 
 namespace NeCo
 {
@@ -27,62 +24,24 @@ namespace NeCo
         /// <summary>
         /// シングルトン形式で指定されたクラスをコンテナに登録する
         /// </summary>
-        /// <param name="builder">コンテナを生成するビルダー</param>
-        /// <typeparam name="FROMTO">登録するクラスの型</typeparam>
-        /// <returns></returns>
         public static IRegistrationParamter RegistrationAsSingleton<FROMTO>(this INeCoBuilder builder)
         {
             Type type = typeof(FROMTO);
 
-            IRegistrationParamter parameter = Registration(builder, type, type, InstanceType.Singleton, null, false, string.Empty);
+            IRegistrationParamter parameter = Registration(builder, type, type, InstanceType.Singleton, null, new SystemInstanceRegistrationOptions());
             return parameter;
         }
 
         /// <summary>
         /// シングルトン形式で指定されたクラスをコンテナに登録する
         /// </summary>
-        /// <param name="builder">コンテナを生成するビルダー</param>
-        /// <param name="isThisEntryPoint">このクラスのインスタンスをBuild後に生成するか</param>
-        /// <typeparam name="FROMTO">登録するクラスの型</typeparam>
-        /// <returns></returns>
-        public static IRegistrationParamter RegistrationAsSingleton<FROMTO>(this INeCoBuilder builder, bool isThisEntryPoint)
+        public static IRegistrationParamter RegistrationAsSingleton<FROMTO>(this INeCoBuilder builder, SystemInstanceRegistrationOptions options)
         {
             Type type = typeof(FROMTO);
 
-            IRegistrationParamter parameter = Registration(builder, type, type, InstanceType.Singleton, null, isThisEntryPoint, string.Empty);
+            IRegistrationParamter parameter = Registration(builder, type, type, InstanceType.Singleton, null, options);
             return parameter;
-        }
-
-        /// <summary>
-        /// シングルトン形式で指定されたクラスをコンテナに登録する
-        /// </summary>
-        /// <param name="builder">コンテナを生成するビルダー</param>
-        /// <param name="id">id</param>
-        /// <typeparam name="FROMTO">登録するクラスの型</typeparam>
-        /// <returns></returns>
-        public static IRegistrationParamter RegistrationAsSingleton<FROMTO>(this INeCoBuilder builder, string id)
-        {
-            Type type = typeof(FROMTO);
-
-            IRegistrationParamter parameter = Registration(builder, type, type, InstanceType.Singleton, null, false, id);
-            return parameter;
-        }
-
-        /// <summary>
-        /// シングルトン形式で指定されたクラスをコンテナに登録する
-        /// </summary>
-        /// <param name="builder">コンテナを生成するビルダー</param>
-        /// <param name="isThisEntryPoint">このクラスのインスタンスをBuild後に生成するか</param>
-        /// <param name="id">id</param>
-        /// <typeparam name="FROMTO">登録するクラスの型</typeparam>
-        /// <returns></returns>
-        public static IRegistrationParamter RegistrationAsSingleton<FROMTO>(this INeCoBuilder builder, bool isThisEntryPoint, string id)
-        {
-            Type type = typeof(FROMTO);
-
-            IRegistrationParamter parameter = Registration(builder, type, type, InstanceType.Singleton, null, isThisEntryPoint, id);
-            return parameter;
-        }
+        }        
 
         #endregion
 
@@ -91,60 +50,22 @@ namespace NeCo
         /// <summary>
         /// Resolve毎に新しいインスタンスとして生成して欲しいクラスをコンテナに登録する
         /// </summary>
-        /// <param name="builder">コンテナを生成するビルダー</param>
-        /// <typeparam name="FROMTO">登録するクラスの型</typeparam>
-        /// <returns></returns>
         public static IRegistrationParamter RegistrationAsTransient<FROMTO>(this INeCoBuilder builder)
         {
             Type type = typeof(FROMTO);
 
-            IRegistrationParamter parameter = Registration(builder, type, type, InstanceType.Transient, null, false, string.Empty);
+            IRegistrationParamter parameter = Registration(builder, type, type, InstanceType.Transient, null, new SystemInstanceRegistrationOptions());
             return parameter;
         }
 
         /// <summary>
         /// Resolve毎に新しいインスタンスとして生成して欲しいクラスをコンテナに登録する
         /// </summary>
-        /// <param name="builder">コンテナを生成するビルダー</param>
-        /// <param name="id">id</param>
-        /// <typeparam name="FROMTO">登録するクラスの型</typeparam>
-        /// <returns></returns>
-        public static IRegistrationParamter RegistrationAsTransient<FROMTO>(this INeCoBuilder builder, string id)
+        public static IRegistrationParamter RegistrationAsTransient<FROMTO>(this INeCoBuilder builder, SystemInstanceRegistrationOptions options)
         {
             Type type = typeof(FROMTO);
 
-            IRegistrationParamter parameter = Registration(builder, type, type, InstanceType.Transient, null, false, id);
-            return parameter;
-        }
-
-        /// <summary>
-        /// Resolve毎に新しいインスタンスとして生成して欲しいクラスをコンテナに登録する
-        /// </summary>
-        /// <param name="builder">コンテナを生成するビルダー</param>
-        /// <param name="isThisEntryPoint">このクラスのインスタンスをBuild後に生成するか</param>
-        /// <typeparam name="FROMTO">登録するクラスの型</typeparam>
-        /// <returns></returns>
-        public static IRegistrationParamter RegistrationAsTransient<FROMTO>(this INeCoBuilder builder, bool isThisEntryPoint)
-        {
-            Type type = typeof(FROMTO);
-
-            IRegistrationParamter parameter = Registration(builder, type, type, InstanceType.Transient, null, isThisEntryPoint, string.Empty);
-            return parameter;
-        }
-
-        /// <summary>
-        /// Resolve毎に新しいインスタンスとして生成して欲しいクラスをコンテナに登録する
-        /// </summary>
-        /// <param name="builder">コンテナを生成するビルダー</param>
-        /// <param name="isThisEntryPoint">このクラスのインスタンスをBuild後に生成するか</param>
-        /// <param name="id">id</param>
-        /// <typeparam name="FROMTO">登録するクラスの型</typeparam>
-        /// <returns></returns>
-        public static IRegistrationParamter RegistrationAsTransient<FROMTO>(this INeCoBuilder builder, bool isThisEntryPoint, string id)
-        {
-            Type type = typeof(FROMTO);
-
-            IRegistrationParamter parameter = Registration(builder, type, type, InstanceType.Transient, null, isThisEntryPoint, id);
+            IRegistrationParamter parameter = Registration(builder, type, type, InstanceType.Transient, null, options);
             return parameter;
         }
 
@@ -155,60 +76,22 @@ namespace NeCo
         /// <summary>
         /// 既に生成したインスタンスをコンテナに登録する
         /// </summary>
-        /// <param name="builder">コンテナを生成するビルダー</param>
-        /// <param name="instance">登録する生成済みのインスタンス</param>
-        /// <returns></returns>
         public static IRegistrationParamter RegistrationAsConstant(this INeCoBuilder builder, object instance)
         {
             Type type = instance.GetType();
 
-            IRegistrationParamter parameter = Registration(builder, type, type, InstanceType.Constant, instance, false, string.Empty);
+            IRegistrationParamter parameter = Registration(builder, type, type, InstanceType.Constant, instance, new SystemInstanceRegistrationOptions());
             return parameter;
         }
 
         /// <summary>
         /// 既に生成したインスタンスをコンテナに登録する
         /// </summary>
-        /// <param name="builder">コンテナを生成するビルダー</param>
-        /// <param name="instance">登録する生成済みのインスタンス</param>
-        /// <param name="id">id</param>
-        /// <returns></returns>
-        public static IRegistrationParamter RegistrationAsConstant(this INeCoBuilder builder, object instance, string id)
+        public static IRegistrationParamter RegistrationAsConstant(this INeCoBuilder builder, object instance, SystemInstanceRegistrationOptions options)
         {
             Type type = instance.GetType();
 
-            IRegistrationParamter parameter = Registration(builder, type, type, InstanceType.Constant, instance, false, id);
-            return parameter;
-        }
-
-        /// <summary>
-        /// 既に生成したインスタンスをコンテナに登録する
-        /// </summary>
-        /// <param name="builder">コンテナを生成するビルダー</param>
-        /// <param name="instance">登録する生成済みのインスタンス</param>
-        /// <param name="isThisEntryPoint">このクラスのインスタンスをBuild後に生成するか</param>
-        /// <returns></returns>
-        public static IRegistrationParamter RegistrationAsConstant(this INeCoBuilder builder, object instance, bool isThisEntryPoint)
-        {
-            Type type = instance.GetType();
-
-            IRegistrationParamter parameter = Registration(builder, type, type, InstanceType.Constant, instance, isThisEntryPoint, string.Empty);
-            return parameter;
-        }
-
-        /// <summary>
-        /// 既に生成したインスタンスをコンテナに登録する
-        /// </summary>
-        /// <param name="builder">コンテナを生成するビルダー</param>
-        /// <param name="instance">登録する生成済みのインスタンス</param>
-        /// <param name="isThisEntryPoint">このクラスのインスタンスをBuild後に生成するか</param>
-        /// <param name="id">id</param>
-        /// <returns></returns>
-        public static IRegistrationParamter RegistrationAsConstant(this INeCoBuilder builder, object instance, bool isThisEntryPoint, string id)
-        {
-            Type type = instance.GetType();
-
-            IRegistrationParamter parameter = Registration(builder, type, type, InstanceType.Constant, instance, isThisEntryPoint, id);
+            IRegistrationParamter parameter = Registration(builder, type, type, InstanceType.Constant, instance, options);
             return parameter;
         }
 
@@ -219,56 +102,18 @@ namespace NeCo
         /// <summary>
         /// シングルトン形式で指定されたクラスをコンテナに登録する
         /// </summary>
-        /// <param name="builder">コンテナを生成するビルダー</param>
-        /// <param name="isThisEntryPoint">このクラスのインスタンスをBuild後に生成するか</param>
-        /// <typeparam name="FROM">Resolverから受けとつける型</typeparam>
-        /// <typeparam name="TO">Resolveの結果として返すインスタンスの型</typeparam>
-        /// <returns></returns>
-        public static IRegistrationParamter RegistrationAsSingleton<FROM, TO>(this INeCoBuilder builder, bool isThisEntryPoint)
-        {
-            IRegistrationParamter parameter = Registration(builder, typeof(FROM), typeof(TO), InstanceType.Singleton, null, isThisEntryPoint, string.Empty);
-            return parameter;
-        }
-
-        /// <summary>
-        /// シングルトン形式で指定されたクラスをコンテナに登録する
-        /// </summary>
-        /// <param name="builder">コンテナを生成するビルダー</param>
-        /// <param name="id">id</param>
-        /// <typeparam name="FROM">Resolverから受けとつける型</typeparam>
-        /// <typeparam name="TO">Resolveの結果として返すインスタンスの型</typeparam>
-        /// <returns></returns>
-        public static IRegistrationParamter RegistrationAsSingleton<FROM, TO>(this INeCoBuilder builder, string id)
-        {
-            IRegistrationParamter parameter = Registration(builder, typeof(FROM), typeof(TO), InstanceType.Singleton, null, false, id);
-            return parameter;
-        }
-
-        /// <summary>
-        /// シングルトン形式で指定されたクラスをコンテナに登録する
-        /// </summary>
-        /// <param name="builder">コンテナを生成するビルダー</param>
-        /// <typeparam name="FROM">Resolverから受けとつける型</typeparam>
-        /// <typeparam name="TO">Resolveの結果として返すインスタンスの型</typeparam>
-        /// <returns></returns>
         public static IRegistrationParamter RegistrationAsSingleton<FROM, TO>(this INeCoBuilder builder)
         {
-            IRegistrationParamter parameter = Registration(builder, typeof(FROM), typeof(TO), InstanceType.Singleton, null, false, string.Empty);
+            IRegistrationParamter parameter = Registration(builder, typeof(FROM), typeof(TO), InstanceType.Singleton, null, new SystemInstanceRegistrationOptions());
             return parameter;
         }
 
         /// <summary>
         /// シングルトン形式で指定されたクラスをコンテナに登録する
         /// </summary>
-        /// <param name="builder">コンテナを生成するビルダー</param>
-        /// <param name="isThisEntryPoint">このクラスのインスタンスをBuild後に生成するか</param>
-        /// <param name="id">id</param>
-        /// <typeparam name="FROM">Resolverから受けとつける型</typeparam>
-        /// <typeparam name="TO">Resolveの結果として返すインスタンスの型</typeparam>
-        /// <returns></returns>
-        public static IRegistrationParamter RegistrationAsSingleton<FROM, TO>(this INeCoBuilder builder, bool isThisEntryPoint, string id)
+        public static IRegistrationParamter RegistrationAsSingleton<FROM, TO>(this INeCoBuilder builder, SystemInstanceRegistrationOptions options)
         {
-            IRegistrationParamter parameter = Registration(builder, typeof(FROM), typeof(TO), InstanceType.Singleton, null, isThisEntryPoint, id);
+            IRegistrationParamter parameter = Registration(builder, typeof(FROM), typeof(TO), InstanceType.Singleton, null, options);
             return parameter;
         }
 
@@ -279,54 +124,18 @@ namespace NeCo
         /// <summary>
         /// Resolve毎に新しいインスタンスとして生成して欲しいクラスをコンテナに登録する
         /// </summary>
-        /// <param name="builder">コンテナを生成するビルダー</param>
-        /// <param name="isThisEntryPoint">このクラスのインスタンスをBuild後に生成するか</param>
-        /// <typeparam name="FROM">Resolverから受けとつける型</typeparam>
-        /// <typeparam name="TO">Resolveの結果として返すインスタンスの型</typeparam>
-        /// <returns></returns>
-        public static IRegistrationParamter RegistrationAsTransient<FROM, TO>(this INeCoBuilder builder, bool isThisEntryPoint = false)
-        {
-            IRegistrationParamter parameter = Registration(builder, typeof(FROM), typeof(TO), InstanceType.Transient, null, isThisEntryPoint, string.Empty);
-            return parameter;
-        }
-
-        /// <summary>
-        /// Resolve毎に新しいインスタンスとして生成して欲しいクラスをコンテナに登録する
-        /// </summary>
-        /// <param name="builder">コンテナを生成するビルダー</param>
-        /// <param name="id">id</param>
-        /// <typeparam name="FROM">Resolverから受けとつける型</typeparam>
-        /// <typeparam name="TO">Resolveの結果として返すインスタンスの型</typeparam>
-        /// <returns></returns>
-        public static IRegistrationParamter RegistrationAsTransient<FROM, TO>(this INeCoBuilder builder, string id)
-        {
-            IRegistrationParamter parameter = Registration(builder, typeof(FROM), typeof(TO), InstanceType.Transient, null, false, id);
-            return parameter;
-        }
-
-        /// <summary>
-        /// Resolve毎に新しいインスタンスとして生成して欲しいクラスをコンテナに登録する
-        /// </summary>
-        /// <param name="builder">コンテナを生成するビルダー</param>
-        /// <typeparam name="FROM">Resolverから受けとつける型</typeparam>
-        /// <typeparam name="TO">Resolveの結果として返すインスタンスの型</typeparam>
-        /// <returns></returns>
         public static IRegistrationParamter RegistrationAsTransient<FROM, TO>(this INeCoBuilder builder)
         {
-            IRegistrationParamter parameter = Registration(builder, typeof(FROM), typeof(TO), InstanceType.Transient, null, false, string.Empty);
+            IRegistrationParamter parameter = Registration(builder, typeof(FROM), typeof(TO), InstanceType.Transient, null, new SystemInstanceRegistrationOptions());
             return parameter;
         }
 
         /// <summary>
         /// Resolve毎に新しいインスタンスとして生成して欲しいクラスをコンテナに登録する
         /// </summary>
-        /// <param name="builder">コンテナを生成するビルダー</param>
-        /// <typeparam name="FROM">Resolverから受けとつける型</typeparam>
-        /// <typeparam name="TO">Resolveの結果として返すインスタンスの型</typeparam>
-        /// <returns></returns>
-        public static IRegistrationParamter RegistrationAsTransient<FROM, TO>(this INeCoBuilder builder, bool isThisEntryPoint, string id)
+        public static IRegistrationParamter RegistrationAsTransient<FROM, TO>(this INeCoBuilder builder, SystemInstanceRegistrationOptions options)
         {
-            IRegistrationParamter parameter = Registration(builder, typeof(FROM), typeof(TO), InstanceType.Transient, null, isThisEntryPoint, id);
+            IRegistrationParamter parameter = Registration(builder, typeof(FROM), typeof(TO), InstanceType.Transient, null, options);
             return parameter;
         }
 
@@ -337,89 +146,47 @@ namespace NeCo
         /// <summary>
         /// 既に生成したインスタンスをコンテナに登録する
         /// </summary>
-        /// <param name="builder">コンテナを生成するビルダー</param>
-        /// <param name="instance">登録する生成済みのインスタンス</param>
-        /// <param name="isThisEntryPoint">このクラスのインスタンスをBuild後に生成するか</param>
-        /// <typeparam name="FROM">Resolverから受けとつける型</typeparam>
-        /// <returns></returns>
-        public static IRegistrationParamter RegistrationAsConstant<FROM>(this INeCoBuilder builder, object instance, bool isThisEntryPoint = false)
+        public static IRegistrationParamter RegistrationAsConstant<FROM>(this INeCoBuilder builder, object instance)
         {
             Type type = instance.GetType();
 
-            IRegistrationParamter parameter = Registration(builder, typeof(FROM), type, InstanceType.Constant, instance, isThisEntryPoint, string.Empty);
+            IRegistrationParamter parameter = Registration(builder, typeof(FROM), type, InstanceType.Constant, instance, new SystemInstanceRegistrationOptions());
             return parameter;
         }
 
         /// <summary>
         /// 既に生成したインスタンスをコンテナに登録する
         /// </summary>
-        /// <param name="builder">コンテナを生成するビルダー</param>
-        /// <param name="instance">登録する生成済みのインスタンス</param>
-        /// <param name="id">id</param>
-        /// <typeparam name="FROM">Resolverから受けとつける型</typeparam>
-        /// <returns></returns>
-        public static IRegistrationParamter RegistrationAsConstant<FROM>(this INeCoBuilder builder, object instance, string id)
+        public static IRegistrationParamter RegistrationAsConstant<FROM>(this INeCoBuilder builder, object instance, SystemInstanceRegistrationOptions options)
         {
             Type type = instance.GetType();
 
-            IRegistrationParamter parameter = Registration(builder, typeof(FROM), type, InstanceType.Constant, instance, false, id);
-            return parameter;
-        }        
-
-        /// <summary>
-        /// 既に生成したインスタンスをコンテナに登録する
-        /// </summary>
-        /// <param name="builder">コンテナを生成するビルダー</param>
-        /// <param name="instance">登録する生成済みのインスタンス</param>
-        /// <typeparam name="FROM">Resolverから受けとつける型</typeparam>
-        /// <returns></returns>
-        public static IRegistrationParamter RegistrationAsConstant<FROM>(this INeCoBuilder builder, object instance)
-        {
-            Type type = instance.GetType();
-
-            IRegistrationParamter parameter = Registration(builder, typeof(FROM), type, InstanceType.Constant, instance, false, string.Empty);
-            return parameter;
-        }                
-
-        /// <summary>
-        /// 既に生成したインスタンスをコンテナに登録する
-        /// </summary>
-        /// <param name="builder">コンテナを生成するビルダー</param>
-        /// <param name="instance">登録する生成済みのインスタンス</param>
-        /// <param name="isThisEntryPoint">このクラスのインスタンスをBuild後に生成するか</param>
-        /// <param name="id">id</param>
-        /// <typeparam name="FROM">Resolverから受けとつける型</typeparam>
-        /// <returns></returns>
-        public static IRegistrationParamter RegistrationAsConstant<FROM>(this INeCoBuilder builder, object instance, bool isThisEntryPoint, string id)
-        {
-            Type type = instance.GetType();
-
-            IRegistrationParamter parameter = Registration(builder, typeof(FROM), type, InstanceType.Constant, instance, isThisEntryPoint, id);
+            IRegistrationParamter parameter = Registration(builder, typeof(FROM), type, InstanceType.Constant, instance, options);
             return parameter;
         }        
 
         #endregion
 
-        private static IRegistrationParamter Registration(INeCoBuilder builder, Type from, Type to, InstanceType instanceType, object instance, bool isThisEntryPoint, string id)
+        private static IRegistrationParamter Registration(INeCoBuilder builder, Type from, Type to, InstanceType instanceType, object instance,  SystemInstanceRegistrationOptions options)
         {
             var info = CreateSystemInstanceInfo(
-                from: new Dependencys(from, id),
+                from: new Dependencys(from, options.Id),
                 to: to,
                 instanceType: instanceType,
-                isThisEntryPoint: isThisEntryPoint,
-                instance: instance
+                instance: instance,
+                options
             );
 
             builder.Register(info);
             return info;
         }
 
-        private static IRegistrationParamter CreateSystemInstanceInfo(Dependencys from, Type to, InstanceType instanceType, object instance = null, bool isThisEntryPoint = false)
+        private static IRegistrationParamter CreateSystemInstanceInfo(Dependencys from, Type to, InstanceType instanceType, object instance, SystemInstanceRegistrationOptions options)
         {
             if (instance != null && instance.GetType().IsMonoBehaviourSubClass())
                 throw new NotSupportedException("MonoBehaviourを継承しているクラスを指定しました : " + instance.GetType());
 
-            INeCoInjecter injecter = CreateInjecter(to, false);
+            INeCoInjecter injecter = CreateInjecter(to, options.injectionType);
 
             return new SystemInstanceParameter
             (
@@ -428,7 +195,7 @@ namespace NeCo
                 instanceType,
                 injecter,
                 instance,
-                isThisEntryPoint
+                options.IsThisEntryPoint
             );
         }
     }
