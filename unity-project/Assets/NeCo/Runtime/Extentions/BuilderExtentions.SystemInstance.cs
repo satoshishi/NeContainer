@@ -419,7 +419,7 @@ namespace NeCo
             if (instance != null && instance.GetType().IsMonoBehaviourSubClass())
                 throw new NotSupportedException("MonoBehaviourを継承しているクラスを指定しました : " + instance.GetType());
 
-            INeCoInjecter injecter = CreateInjecter(to);
+            INeCoInjecter injecter = CreateInjecter(to, false);
 
             return new SystemInstanceParameter
             (

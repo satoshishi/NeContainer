@@ -26,24 +26,6 @@ namespace NeCo
             return false;
         }        
 
-        internal static bool HasInjectionAttributeInAny(this Type target)
-        {
-            var members = target.GetMembers(BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public);
-
-            foreach(var member in members)
-            {
-                bool injectAttribute = member.GetCustomAttribute<InjectAttribute>() != null;
-                bool injectFromIDAttribute = member.GetCustomAttribute<InjectFromIDAttribute>() != null;
-
-                if(injectAttribute || injectFromIDAttribute)
-                {
-                    return true;
-                }
-            }
-
-            return false;
-        }        
-
         internal static bool HasInjectionAttributeInConstructor(this Type target, out ConstructorInfo constructorInfo)
         {
             var constructors = target.GetConstructors(BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public);
