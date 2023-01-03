@@ -24,6 +24,7 @@ namespace NeCo
                 InjectionType.Constructor => CreateConstructorInjecter(target),
                 InjectionType.Method => CreateMethodInjecter(target),
                 InjectionType.Property => CreatePropertyInjecter(target),
+                InjectionType.None => CreateDoNotInjecter(target),
                 InjectionType.Self => CreateInjecterSelf(target),
                 _ => CreateInjecterSelf(target),
             };            
@@ -80,6 +81,14 @@ namespace NeCo
             return null;
         }                
 
+        private static INeCoInjecter CreateDoNotInjecter(Type target)
+        {
+            INeCoInjecter newInjecter = new DoNotInjecter();
+            InjecterContainer.Add(target, newInjecter);      
+
+            return newInjecter;
+        }                        
+
         private static INeCoInjecter CreateInjecterSelf(Type target)
         {
             INeCoInjecter newInjecter = null;               
@@ -100,10 +109,8 @@ namespace NeCo
                 return newInjecter;                                
 
             // どれも作れなかったらinjection不要と判断
-            newInjecter = new DoNotInjecter();
-            InjecterContainer.Add(target, newInjecter);      
+            return CreateDoNotInjecter(target);
 
-            return newInjecter;
         } 
 
         #endregion
