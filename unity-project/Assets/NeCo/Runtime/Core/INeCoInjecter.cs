@@ -7,6 +7,7 @@ namespace NeCo
         Constructor,
         Method,
         Property,
+        None,
         Self
     }
 
