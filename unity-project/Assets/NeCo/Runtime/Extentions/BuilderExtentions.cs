@@ -19,16 +19,21 @@ namespace NeCo
                 return existsInjecter;
             }
 
+            if (!target.HasInjectionAttributeInAny())
+            {
+                newInjecter = new DoNotInjecter();
+                InjecterContainer.Add(target, newInjecter);      
+
+                return newInjecter;
+            }                          
+
             if (target.HasInjectionAttributeInConstructor(out ConstructorInfo constructor))
             {
                 newInjecter = new ConstructInjecter(constructor);
                 InjecterContainer.Add(target, newInjecter);
 
                 return newInjecter;
-            }
-
-            //if (target.HasConstructor(out constructor))
-            //return new ConstructInjecter(constructor);                
+            }              
 
             if (target.HasInjectionAttributeInMethod(out MethodInfo method))
             {
