@@ -51,7 +51,7 @@ public class EntryPoint
         builder.RegistrationAsSingleton<SampleA>();
         builder.RegistrationAsSingleton<ISample, SampleB>();
         builder.RegistrationAsConstant("hello");
-        builder.RegistrationAsSingleton<SampleEntry>(true);
+        builder.RegistrationAsSingleton<SampleEntry>(new SystemInstanceRegistrationOptions() { IsThisEntryPoint = true });
 
         builder.Build();
 

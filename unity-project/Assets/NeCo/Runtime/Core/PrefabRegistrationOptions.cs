@@ -14,5 +14,7 @@ namespace NeCo
         public string ComponentTypeName;
 
         public string Id = string.Empty;
+
+        public InjectionType injectionType = InjectionType.Self;        
     }
 }

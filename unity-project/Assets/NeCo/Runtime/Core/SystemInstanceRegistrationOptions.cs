@@ -3,14 +3,12 @@ using UnityEngine;
 namespace NeCo
 {
     [System.Serializable]
-    public class MonoBehaviourRegistrationOptions
+    public class SystemInstanceRegistrationOptions
     {
         public bool IsThisEntryPoint = false;
 
-        public string ComponentTypeName;
-
         public string Id = string.Empty;        
 
-        public InjectionType injectionType = InjectionType.Self;        
+        public InjectionType injectionType = InjectionType.Self;
     }
 }
