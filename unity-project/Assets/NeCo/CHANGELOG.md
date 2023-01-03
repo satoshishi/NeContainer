@@ -1,5 +1,9 @@
 # ChangeLog
 
+## [1.2.6] - 2023-1-03
+### Build処理中にGetCustomAttributeが走る回数を軽減する修正
+- 上記の通り
+
 ## [1.2.4] - 2022-11-10
 ### StringからキーとなるTypeを指定した際に、injectionが正常に実行されない問題を修正
 - MonoBehaviourRegistrationに関しても同様の方法で登録できるように
