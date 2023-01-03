@@ -175,7 +175,7 @@ namespace NeCo
 
         private static IRegistrationParamter CreatePrefabInstanceInfo(Dependencys from, Type to, InstanceType instanceType, object gameObject, Transform parent = null, bool dontDestoryOnLoad = false, bool isThisEntryPoint = false)
         {
-            INeCoInjecter injecter = CreateInjecter(to);
+            INeCoInjecter injecter = CreateInjecter(to, true);
 
             return new PrefabInstanceParameter
             (

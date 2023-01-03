@@ -97,7 +97,7 @@ namespace NeCo
             if (!gameObject.GetType().IsMonoBehaviourSubClass())
                 throw new NotSupportedException("MonoBehaviourを継承していないクラスを指定しました : " + gameObject.GetType());
 
-            INeCoInjecter injecter = CreateInjecter(to);
+            INeCoInjecter injecter = CreateInjecter(to, true);
 
             return new MonoBehaviourInstanceParameter
             (

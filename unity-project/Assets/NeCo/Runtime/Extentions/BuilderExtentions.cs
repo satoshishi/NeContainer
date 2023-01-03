@@ -9,7 +9,7 @@ namespace NeCo
     {
         #region factory
 
-        private static INeCoInjecter CreateInjecter(Type target)
+        private static INeCoInjecter CreateInjecter(Type target, bool IsMonoBehaviourClass)
         {
             INeCoInjecter newInjecter = null;            
 
@@ -19,20 +19,15 @@ namespace NeCo
                 return existsInjecter;
             }
 
-            if (!target.HasInjectionAttributeInAny())
+            if(!IsMonoBehaviourClass)
             {
-                newInjecter = new DoNotInjecter();
-                InjecterContainer.Add(target, newInjecter);      
+                if (target.HasInjectionAttributeInConstructor(out ConstructorInfo constructor))
+                {
+                    newInjecter = new ConstructInjecter(constructor);
+                    InjecterContainer.Add(target, newInjecter);
 
-                return newInjecter;
-            }                          
-
-            if (target.HasInjectionAttributeInConstructor(out ConstructorInfo constructor))
-            {
-                newInjecter = new ConstructInjecter(constructor);
-                InjecterContainer.Add(target, newInjecter);
-
-                return newInjecter;
+                    return newInjecter;
+                }
             }              
 
             if (target.HasInjectionAttributeInMethod(out MethodInfo method))
