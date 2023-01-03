@@ -13,12 +13,6 @@ namespace NeCo
         {
             INeCoInjecter newInjecter = default;        
 
-            //キャッシュがあったら、そっちを使う
-            if(InjecterContainer.TryGet(target, out INeCoInjecter existsInjecter))
-            {
-                return existsInjecter;
-            }
-
             newInjecter = type switch
             {
                 InjectionType.Constructor => CreateConstructorInjecter(target),
@@ -43,7 +37,6 @@ namespace NeCo
             if (target.HasInjectionAttributeInConstructor(out ConstructorInfo constructor))
             {
                 newInjecter = new ConstructInjecter(constructor);
-                InjecterContainer.Add(target, newInjecter);
 
                 return newInjecter;
             }        
@@ -58,7 +51,6 @@ namespace NeCo
             if (target.HasInjectionAttributeInMethod(out MethodInfo method))
             {
                 newInjecter = new MethodInjecter(method);
-                InjecterContainer.Add(target, newInjecter);
                 
                 return newInjecter;                
             }
@@ -73,7 +65,6 @@ namespace NeCo
             if (target.HasInjectionAttributeInProperty(out (PropertyInfo, string)[] propertys))
             {
                 newInjecter = new PropertyInjecter(propertys);
-                InjecterContainer.Add(target, newInjecter);      
 
                 return newInjecter;
             }
@@ -84,7 +75,6 @@ namespace NeCo
         private static INeCoInjecter CreateDoNotInjecter(Type target)
         {
             INeCoInjecter newInjecter = new DoNotInjecter();
-            InjecterContainer.Add(target, newInjecter);      
 
             return newInjecter;
         }                        
